@@ -1,37 +1,59 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useForm} from 'react-hook-form';
+import * as yup from 'yup';
 
 const RegisterForm = ()=>{
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [repassword, setRePassword] = useState('');
+  const schema = yup.object().shape({
+    Email: yup
+      .string()
+      .required()
+      .email(),
+    password: yup
+      .string()
+      .required()
+      .max(45),
+    passwordConfirmation: yup
+    .string()
+    .required()
+    .oneOf([yup.ref("password"), null], "Password must match"),
+  });
 
-  const register = () =>{
-    alert('asdfasdf')
+  const onSubmit = data => {
+    // truyen xuong back-end + render /profile
+    console.log(data);
   }
 
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: schema
+  });
+
   return (<div className="w-full max-w-xs" style={{margin: '50px auto'}}>
-    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Email">
           Email
         </label>
-        <input onChange={event => setEmail(event.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Email" type="text" placeholder="Email"/>
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Email" name="Email" type="text" placeholder="Email"
+        ref={register}/>
+        <p className="text-left text-red-700 text-xs">{errors?.Email?.message}</p>
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
           Password
         </label>
-        <input onChange={event => setPassword(event.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline" name="password" id="password" type="password" placeholder="******************" ref={register}/>
+        <p className="text-left text-red-700 text-xs">{errors?.password?.message}</p>
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="passwordConfirmation">
           Re-Password
         </label>
-        <input onChange={event => setRePassword(event.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline" name="passwordConfirmation" id="passwordConfirmation" type="password" placeholder="******************" ref={register}/>
+        <p className="text-left text-red-700 text-xs">{errors?.passwordConfirmation?.message}</p>
       </div>
       <div className="flex items-center justify-between"  style={{justifyContent:"center"}}>
-        <button onClick={()=>{register()}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Register
         </button>
       </div>
