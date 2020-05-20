@@ -27,7 +27,7 @@ function App() {
                 <Profile cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}/>
             : <Redirect to="/login" />
         )} />
-        <Route exact path='/Register' render={(props) => <RegisterForm login={login} apiEndpoint={apiEndpoint}></RegisterForm>} />
+        <Route exact path='/Register'  render={(props) => <RegisterForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></RegisterForm>} />
         <Route path='/' render={props => (
             login?
                 <Profile cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}/>

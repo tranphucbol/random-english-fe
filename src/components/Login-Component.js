@@ -31,7 +31,7 @@ const LoginForm = (props)=>{
     })
     .then(res => res.json())
     .then(res => {
-      if(res.data.token != null){
+      if(res.data && res.data.token != null){
         let expireDate = new Date();
         expireDate.setTime(expireDate.getTime() + (15*60*1000)); // 15 min expiration
         localStorage.setItem("login","true");
