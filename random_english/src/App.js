@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -15,6 +15,8 @@ function App() {
 
   const setAuthCookie = (cookieName,cookieValue,options) => setCookie(cookieName,cookieValue,options);
   const authCookie = cookies['authentication'];
+  const [data,setData] = useState(null);
+  const setNewData = (data) => setData(data);
 
   return (
     <div className="App">
@@ -22,13 +24,13 @@ function App() {
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <Route exact path='/profile' render={props => (
             login?
-                <Profile cookie={authCookie} apiEndpoint={apiEndpoint}/>
+                <Profile cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}/>
             : <Redirect to="/login" />
         )} />
         <Route exact path='/Register' render={(props) => <RegisterForm login={login} apiEndpoint={apiEndpoint}></RegisterForm>} />
         <Route path='/' render={props => (
             login?
-                <Profile cookie={authCookie} apiEndpoint={apiEndpoint}/>
+                <Profile cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}/>
             : <Redirect to="/login" />
         )} />
       </Switch>

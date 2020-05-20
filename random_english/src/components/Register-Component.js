@@ -10,14 +10,28 @@ const RegisterForm = (props)=>{
       .string()
       .required()
       .email(),
+
     password: yup
       .string()
       .required()
       .max(45),
+
     passwordConfirmation: yup
     .string()
     .required()
     .oneOf([yup.ref("password"), null], "Password must match"),
+
+    name: yup
+    .string()
+    .required()
+    .max(20),
+
+    phoneNumber: yup
+    .number()
+    .typeError('Must be a number')
+    .required()
+    .min(9)
+    .max(15)
   });
 
   const onSubmit = data => {
@@ -30,17 +44,18 @@ const RegisterForm = (props)=>{
       },
       body: JSON.stringify({
         email: data.Email,
-        password: data.password
+        password: data.password,
+        name: data.name,
+        phoneNumber: data.phoneNumber
         })
       })
       .then(res => res.json())
-      .then(data => {
-        if(data.token != null){
+      .then(res => {
+        if(res.data.token != null){
           localStorage.setItem("login","true");
-          localStorage.setItem("access-token",data.token);
+          localStorage.setItem("access-token",res.data.token);
         }
     })
-    console.log(data);
   }
 
   const { register, handleSubmit, errors } = useForm({
@@ -56,7 +71,7 @@ const RegisterForm = (props)=>{
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Email">
             Email
           </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Email" name="Email" type="text" placeholder="Email"
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Email" name="Email" type="text" placeholder="example@gmail.com"
           ref={register}/>
           <p className="text-left text-red-700 text-xs">{errors?.Email?.message}</p>
         </div>
@@ -73,6 +88,20 @@ const RegisterForm = (props)=>{
           </label>
           <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline" name="passwordConfirmation" id="passwordConfirmation" type="password" placeholder="******************" ref={register}/>
           <p className="text-left text-red-700 text-xs">{errors?.passwordConfirmation?.message}</p>
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            Full Name
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline" name="name" id="name" type="text" placeholder="Kha Tran Minh" ref={register}/>
+          <p className="text-left text-red-700 text-xs">{errors?.name?.message}</p>
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
+            Phone Number (Raw numbers)
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline" name="phoneNumber" id="phoneNumber" type="text" placeholder="0482246257" ref={register}/>
+          <p className="text-left text-red-700 text-xs">{errors?.phoneNumber?.message}</p>
         </div>
         <div className="flex items-center justify-between"  style={{justifyContent:"center"}}>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">

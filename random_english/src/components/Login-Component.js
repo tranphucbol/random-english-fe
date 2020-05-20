@@ -30,13 +30,12 @@ const LoginForm = (props)=>{
       })
     })
     .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.token != null){
+    .then(res => {
+      if(res.data.token != null){
         let expireDate = new Date();
         expireDate.setTime(expireDate.getTime() + (15*60*1000)); // 15 min expiration
         localStorage.setItem("login","true");
-        props.setCookie('authentication',data.token,{
+        props.setCookie('authentication',res.data.token,{
           expires: expireDate,
           path: '/',
           httpOnly: false,

@@ -3,7 +3,7 @@ import handleResponse from '../helper/ResponseHandler';
 import { Redirect } from 'react-router-dom';
 
 const Profile = (props)=>{
-  const data =
+  const api =
     fetch(props.apiEndpoint+'/users/profile', {
     method: 'GET',
     headers: {
@@ -12,44 +12,48 @@ const Profile = (props)=>{
       'Authorization': 'Bearer ' + props.cookie,
     },
     })
-    .then(res => handleResponse);
+    .then(res => handleResponse(res))
+    .then(resdata => {
+      resdata = JSON.parse(resdata);
+      props.setNewData(resdata);
+    });
 
-  //   useEffect(() => {
-  //     fetch("")
-  //         .then(res => res.json())
-  //         .then(
-  //             (result) => {
-  //               if(result){
-  //                 let dataInfection = [];
-  //                 let dataMaybeInfection = [];
-  //                 let dataCured = [];
-  //                 Object.keys(result).map(day=>{
-  //                   const date = (regexDay.exec(day))[0];
-  //                   const ts = moment(date,'D/M').valueOf()+24*60*60*1000; //plus 1 day 
-  //                   dataInfection.push({x:ts, y: result[day][0]});
-  //                   dataMaybeInfection.push({x:ts, y: result[day][1]});
-  //                   dataCured.push({x:ts, y: result[day][2]});
-  //                 });
-  //                 console.log(result);
-  //                 dataInfection.sort((a,b)=>a.x> b.x? 1:-1)
-  //                 dataMaybeInfection.sort((a,b)=>a.x> b.x? 1:-1)
-  //                 dataCured.sort((a,b)=>a.x> b.x? 1:-1)
-  //                 setDataInfection(dataInfection);
-  //                 setDataMaybeInfection(dataMaybeInfection);
-  //                 setDataCured(dataCured);
-  //               }
-  //             },
-  //             (error) => {
-  //             }
-  //         )
-  // }, [])
   // if authorization fails
-  if(data === false)
+  if(props.data === false)
     return <Redirect to="/login"></Redirect>
   else // render the profile page
   return (<div className="w-full max-w-xs" style={{margin: '50px auto'}}>
-    <h2>Login Successful</h2>
-  </div>)
+    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" >
+        <div className="mb-4">
+          <label className="block text-gray-500 text-sm font-bold mb-2">
+            Email
+          </label>
+          <p className="block text-gray-700 text-sm font-bold mb-2">
+            {props.data && props.data['email']}
+          </p>
+        </div>
+        <div className="mb-4">
+         <label className="block text-gray-500 text-sm font-bold mb-2">
+            Full Name
+          </label>
+          <p className="block text-gray-700 text-sm font-bold mb-2">
+            {props.data && props.data['fullName']}
+          </p>
+        </div>
+        <div className="mb-4">
+         <label className="block text-gray-500 text-sm font-bold mb-2">
+            Phone Number
+          </label>
+          <p className="block text-gray-700 text-sm font-bold mb-2">
+            {props.data && props.data['phoneNumber']}
+          </p>
+        </div>
+      </form>
+      <p className="text-center text-gray-500 text-xs">
+        &copy;2020 Acme Corp. All rights reserved.
+      </p>
+    </div>
+  )
 }
 
 export default Profile;

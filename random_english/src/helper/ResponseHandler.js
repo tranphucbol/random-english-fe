@@ -1,15 +1,15 @@
 
 function handleResponse(response){
-    return response.then(text => {
-        const data = data.json();
+    return response.text().then(text => {
+        const res = JSON.parse(text);
         if (!response.ok) {
-            if ([401, 403].indexOf(response.status) !== -1) {
+            if ([400,401, 403].indexOf(response.status) !== -1) {
                 localStorage.removeItem("login");
                 window.location.reload();
             }
             return false;
         }
-        return data;
+        return res.data;
     });
 }
 
