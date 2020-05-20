@@ -1,6 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Profile = ()=>{
+const Profile = (props)=>{
+  const fetch = data => {
+    fetch(props.apiEndpoint+'/users/profile', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': props.cookie
+    },
+    body: JSON.stringify({
+      email: data.Email,
+      password: data.password
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      if(data.token != null){
+        let expireDate = new Date();
+        expireDate.setTime(expireDate.getTime() + (15*60*1000)); // 15 min expiration
+        localStorage.setItem("login","true");
+        props.setCookie('authentication',data.token,{
+          expires: expireDate,
+          path: '/',
+          httpOnly: false,
+        });
+        props.setCurUser(data.email);
+      }
+    })
+  }
   //   useEffect(() => {
   //     fetch("")
   //         .then(res => res.json())

@@ -22,7 +22,7 @@ const RegisterForm = (props)=>{
 
   const onSubmit = data => {
     // truyen xuong back-end + render /profile
-    const login = fetch(props.apiEndpoint + '/users/register', {
+    const register = fetch(props.apiEndpoint + '/users/register', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -36,8 +36,7 @@ const RegisterForm = (props)=>{
       .then(res => res.json())
       .then(data => {
         if(data.token != null){
-          props.setLogin(true);
-          props.setCurUser(data.email);
+          localStorage.setItem("login","true");
           localStorage.setItem("access-token",data.token);
         }
     })
