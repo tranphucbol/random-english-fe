@@ -1,8 +1,10 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
+import { Redirect } from 'react-router-dom';
 
-const LoginForm = ()=>{
+const LoginForm = (props)=>{
+
   const schema = yup.object().shape({
     Email: yup
       .string()
@@ -16,13 +18,35 @@ const LoginForm = ()=>{
   
   const onSubmit = data => {
     // truyen xuong back-end + render /profile
-    console.log(data);
+    fetch(props.apiEndpoint+'/users/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: data.Email,
+      password: data.password
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      if(data.token != null){
+        props.setLogin(true);
+        props.setCurUser(data.email);
+        localStorage.setItem("access-token",data.token);
+      }
+    })
   }
   
   const { register, handleSubmit, errors } = useForm({
     validationSchema: schema
   });
 
+  if(props.login){
+    return <Redirect to="/profile"></Redirect>
+  } else
   return (<div className="w-full max-w-xs" style={{margin: '50px auto'}}>
     <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4">
