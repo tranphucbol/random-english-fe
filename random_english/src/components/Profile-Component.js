@@ -1,35 +1,19 @@
 import React from 'react';
+import handleResponse from '../helper/ResponseHandler';
+import { Redirect } from 'react-router-dom';
 
 const Profile = (props)=>{
-  const fetch = data => {
+  const data =
     fetch(props.apiEndpoint+'/users/profile', {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': props.cookie
+      'Authorization': 'Bearer ' + props.cookie,
     },
-    body: JSON.stringify({
-      email: data.Email,
-      password: data.password
-      })
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.token != null){
-        let expireDate = new Date();
-        expireDate.setTime(expireDate.getTime() + (15*60*1000)); // 15 min expiration
-        localStorage.setItem("login","true");
-        props.setCookie('authentication',data.token,{
-          expires: expireDate,
-          path: '/',
-          httpOnly: false,
-        });
-        props.setCurUser(data.email);
-      }
-    })
-  }
+    .then(res => handleResponse);
+
   //   useEffect(() => {
   //     fetch("")
   //         .then(res => res.json())
@@ -59,6 +43,10 @@ const Profile = (props)=>{
   //             }
   //         )
   // }, [])
+  // if authorization fails
+  if(data === false)
+    return <Redirect to="/login"></Redirect>
+  else // render the profile page
   return (<div className="w-full max-w-xs" style={{margin: '50px auto'}}>
     <h2>Login Successful</h2>
   </div>)

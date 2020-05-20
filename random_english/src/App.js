@@ -22,13 +22,13 @@ function App() {
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <Route exact path='/profile' render={props => (
             login?
-                <Profile cookie={authCookie}/>
+                <Profile cookie={authCookie} apiEndpoint={apiEndpoint}/>
             : <Redirect to="/login" />
         )} />
         <Route exact path='/Register' render={(props) => <RegisterForm login={login} apiEndpoint={apiEndpoint}></RegisterForm>} />
         <Route path='/' render={props => (
             login?
-                <Profile cookie={authCookie}/>
+                <Profile cookie={authCookie} apiEndpoint={apiEndpoint}/>
             : <Redirect to="/login" />
         )} />
       </Switch>
