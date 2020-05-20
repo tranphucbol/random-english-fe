@@ -30,8 +30,8 @@ const RegisterForm = (props)=>{
     .number()
     .typeError('Must be a number')
     .required()
-    .min(9)
-    .max(15)
+    .test('minlen', 'Must be more than 8 characters', val => val.toString().length >= 8)
+    .test('maxlen', 'Must be less than 15 characters', val => val.toString().length <= 15)
   });
 
   const onSubmit = data => {
@@ -46,14 +46,21 @@ const RegisterForm = (props)=>{
         email: data.Email,
         password: data.password,
         name: data.name,
-        phoneNumber: data.phoneNumber
+        numberPhone: data.phoneNumber.toString(),
         })
       })
       .then(res => res.json())
       .then(res => {
-        if(res.data.token != null){
+        console.log(res);
+        if(res.data && res.data.token != null){
+          let expireDate = new Date();
+          expireDate.setTime(expireDate.getTime() + (15*60*1000)); // 15 min expiration
           localStorage.setItem("login","true");
-          localStorage.setItem("access-token",res.data.token);
+          props.setCookie('authentication',res.data.token,{
+            expires: expireDate,
+            path: '/',
+            httpOnly: false,
+          });
         }
     })
   }

@@ -1,22 +1,23 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import handleResponse from '../helper/ResponseHandler';
 import { Redirect } from 'react-router-dom';
 
 const Profile = (props)=>{
-  const api =
+  useEffect(() => {
     fetch(props.apiEndpoint+'/users/profile', {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + props.cookie,
-    },
-    })
-    .then(res => handleResponse(res))
-    .then(resdata => {
-      resdata = JSON.parse(resdata);
-      props.setNewData(resdata);
-    });
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + props.cookie,
+      },
+      })
+      .then(res => handleResponse(res))
+      .then(resdata => {
+        console.log(resdata);
+        props.setNewData(resdata);
+      })
+  }, []);
 
   // if authorization fails
   if(props.data === false)
@@ -37,7 +38,7 @@ const Profile = (props)=>{
             Full Name
           </label>
           <p className="block text-gray-700 text-sm font-bold mb-2">
-            {props.data && props.data['fullName']}
+            {props.data && props.data['name']}
           </p>
         </div>
         <div className="mb-4">
@@ -45,7 +46,7 @@ const Profile = (props)=>{
             Phone Number
           </label>
           <p className="block text-gray-700 text-sm font-bold mb-2">
-            {props.data && props.data['phoneNumber']}
+            {props.data && props.data['numberPhone']}
           </p>
         </div>
       </form>
