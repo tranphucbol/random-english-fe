@@ -10,7 +10,7 @@ import {useCookies} from "react-cookie"
 
 function App() {
   const login = (localStorage.getItem("login")==='true');
-  const apiEndpoint = "http://localhost:3001/api";
+  const apiEndpoint = "https://random-english.herokuapp.com/api";
   const [cookies,setCookie,removeCookie] = useCookies(['authentication']);
 
   const setAuthCookie = (cookieName,cookieValue,options) => setCookie(cookieName,cookieValue,options);
