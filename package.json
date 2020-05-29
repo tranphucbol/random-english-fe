@@ -1,6 +1,6 @@
 {
-  "homepage": "https://anhhuy1304.github.io/randomEnglish/",
-  "name": "random_english",
+  "homepage": "https://tranphucbol.github.io/random-english-fe",
+  "name": "random-english",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,7 +18,7 @@
     "yup": "^0.28.5"
   },
   "scripts": {
-    "predeploy": "npm run build:css:dev",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build:css:pro": "postcss src/css/tailwind.src.css -o src/css/tailwind.css",
     "build:css:dev": "tailwind build src/css/tailwind.src.css -o src/css/tailwind.css",
