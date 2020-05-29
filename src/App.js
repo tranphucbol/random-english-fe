@@ -22,11 +22,12 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
-        <Route exact path='/profile' render={props => (
+        <PrivateRoute path='/profile' login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
+        {/* <Route exact path='/profile' render={props => (
             login?
                 <Profile cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}/>
             : <Redirect to="/login" />
-        )} />
+        )} /> */}
         <Route exact path='/Register'  render={(props) => <RegisterForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></RegisterForm>} />
         <Route path='/' render={props => (
             login?
@@ -37,5 +38,15 @@ function App() {
     </div>
   );
 }
+
+const PrivateRoute = ({component: Component,login, ...rest}) => {
+  return (
+      <Route {...rest} render={props => (
+        login?
+              <Component {...props} />
+          : <Redirect to="/login" />
+      )} />
+  );
+};
 
 export default App;

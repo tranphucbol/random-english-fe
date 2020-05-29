@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import { Redirect } from 'react-router-dom';
 
 const LoginForm = (props)=>{
+  const [loginErr,setLoginErr] = useState(null);
 
   const schema = yup.object().shape({
     Email: yup
@@ -17,6 +18,7 @@ const LoginForm = (props)=>{
   });
   
   const onSubmit = data => {
+    setLoginErr(null);
     // truyen xuong back-end + render /profile
     fetch(props.apiEndpoint+'/users/login', {
     method: 'POST',
@@ -40,6 +42,9 @@ const LoginForm = (props)=>{
           path: '/',
           httpOnly: false,
         });
+      }
+      if(res.status == 0){
+        setLoginErr(res.message);
       }
     })
   }
@@ -68,6 +73,7 @@ const LoginForm = (props)=>{
         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="******************" ref={register} />
         <p className="text-left text-red-700 text-xs">{errors?.password?.message}</p>
       </div>
+      {loginErr && <div className="mb-5 flex text-center text-red-700 text-xs" style={{justifyContent:"center"}}>{loginErr}</div>}
       <div className="flex items-center justify-between" style={{justifyContent:"center"}}>
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Login
