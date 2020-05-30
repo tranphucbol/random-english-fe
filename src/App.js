@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import './css/tailwind.css'
 import  LoginForm  from "./components/Login-Component";
 import RegisterForm from "./components/Register-Component";
+import CardUploadForm from "./components/CardUpload-Component";
 import Profile from "./components/Profile-Component";
 import {useCookies} from "react-cookie"
 
@@ -23,6 +24,7 @@ function App() {
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <PrivateRoute path='/profile' login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
+        <Route path='/card/upload' render={(props) => <CardUploadForm></CardUploadForm>}></Route>
         {/* <Route exact path='/profile' render={props => (
             login?
                 <Profile cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}/>
