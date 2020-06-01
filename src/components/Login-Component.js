@@ -43,7 +43,7 @@ const LoginForm = (props)=>{
           httpOnly: false,
         });
       }
-      if(res.status == 0){
+      if(res.status === 0){
         setLoginErr(res.message);
       }
     })

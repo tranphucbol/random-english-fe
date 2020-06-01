@@ -34,7 +34,7 @@ const RegisterForm = (props) => {
 
     const onSubmit = (data) => {
         // truyen xuong back-end + render /profile
-        const register = fetch(props.apiEndpoint + "/users/register", {
+        fetch(props.apiEndpoint + "/users/register", {
             method: "POST",
             headers: {
                 Accept: "application/json",

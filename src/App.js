@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import './css/tailwind.css'
@@ -13,7 +12,7 @@ import {useCookies} from "react-cookie"
 function App() {
   const login = (localStorage.getItem("login")==='true');
   const apiEndpoint = "https://random-english.herokuapp.com/api";
-  const [cookies,setCookie,removeCookie] = useCookies(['authentication']);
+  const [cookies,setCookie] = useCookies(['authentication']);
 
   const setAuthCookie = (cookieName,cookieValue,options) => setCookie(cookieName,cookieValue,options);
   const authCookie = cookies['authentication'];
@@ -22,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <HeaderComponent></HeaderComponent> */}
+      <HeaderComponent></HeaderComponent>
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <PrivateRoute path='/profile' login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
