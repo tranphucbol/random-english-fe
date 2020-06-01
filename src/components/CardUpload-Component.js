@@ -64,7 +64,9 @@ const CardUploadForm = (props)=>{
   };
   
   const onSubmit = data => {
-    if(data.hasOwnProperty('Image') && data['Image'].hasOwnProperty('content')){
+    if(data.hasOwnProperty('Image') && data['Image'].length === 0){
+      delete data['Image'];
+    } else{
       data['Image'] = data['Image'][0];
       data['Image']['content'] = imgUpload;
     }
@@ -82,6 +84,7 @@ const CardUploadForm = (props)=>{
     }
     
     //call POST API here
+    console.log(data);
   }
 
   const { register, handleSubmit, errors } = useForm({
