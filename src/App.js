@@ -6,6 +6,7 @@ import './css/tailwind.css'
 import  LoginForm  from "./components/Login-Component";
 import RegisterForm from "./components/Register-Component";
 import CardUploadForm from "./components/CardUpload-Component";
+import HeaderComponent from "./components/Header-Component";
 import Profile from "./components/Profile-Component";
 import {useCookies} from "react-cookie"
 
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* <HeaderComponent></HeaderComponent> */}
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <PrivateRoute path='/profile' login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
