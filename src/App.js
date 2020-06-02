@@ -20,7 +20,7 @@ function App() {
   const setNewData = (data) => setData(data);
 
   return (
-    <div className="App">
+    <div className="App flex-col">
       <HeaderComponent></HeaderComponent>
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
