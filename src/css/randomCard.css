@@ -1,0 +1,90 @@
+#vieKey {
+}
+
+#engKey {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+#btnNext {
+  float: right;
+  margin: 10px 0;
+}
+#imgRandom {
+  border-radius: 5px;
+}
+
+#concept {
+  font-style: italic;
+  font-weight: 400;
+  border-style: dashed;
+  border-color: gray;
+  border-width: 0.1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background: floralwhite;
+}
+
+#question {
+  font-size: 1.4rem;
+}
+#answer {
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiFormControlLabel-root.rightAnswer .MuiRadio-colorSecondary.Mui-checked {
+  color: green;
+}
+
+.question-appear-appear,
+.question-appear-enter {
+  opacity: 0;
+  transform: translateX(550px);
+}
+.question-appear-appear.question-appear-appear-active,
+.question-appear-enter.question-appear-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: 0.5s;
+}
+
+.question-appear-leave {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.question-appear-leave.question-appear-leave-active {
+  opacity: 0;
+  transform: translateX(-550px);
+  transition: 0.5s;
+}
+
+
+
+.answer-appear-appear,
+.answer-appear-enter {
+  opacity: 0;
+  transform: translateX(550px);
+}
+.answer-appear-appear.answer-appear-appear-active,
+.answer-appear-enter.answer-appear-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: 0.5s;
+}
+
+.answer-appear-leave {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.answer-appear-leave.answer-appear-leave-active {
+  opacity: 0;
+  transform: translateX(-550px);
+  transition: 0.5s;
+}
+
+.explain{
+    padding: 20px 20px 20px 0;
+}

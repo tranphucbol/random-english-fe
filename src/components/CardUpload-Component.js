@@ -2,7 +2,7 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import { Redirect } from 'react-router-dom';
-
+import '../css/randomCard.css'
 const CardUploadForm = (props)=>{
 
   const InputField = (props) => {

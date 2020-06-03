@@ -7,6 +7,8 @@ import  LoginForm  from "./components/Login-Component";
 import RegisterForm from "./components/Register-Component";
 import CardUploadForm from "./components/CardUpload-Component";
 import Profile from "./components/Profile-Component";
+import RandomCard from "./components/RandomCard-Component";
+import LearnCard from "./components/LearnCard-Component";
 import {useCookies} from "react-cookie"
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <PrivateRoute path='/profile' login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
         <Route path='/card/upload' render={(props) => <CardUploadForm></CardUploadForm>}></Route>
+        <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
+        <Route path='/card/learn' render={(props) => <LearnCard></LearnCard>}></Route>
         {/* <Route exact path='/profile' render={props => (
             login?
                 <Profile cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}/>
