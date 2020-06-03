@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
-import { Redirect } from 'react-router-dom';
+import { Redirect ,useHistory} from 'react-router-dom';
 
 const LoginForm = (props)=>{
   const [loginErr,setLoginErr] = useState(null);
+  const history = useHistory();
 
   const schema = yup.object().shape({
     Email: yup
@@ -48,6 +49,10 @@ const LoginForm = (props)=>{
       }
     })
   }
+
+  const redirectRegister = () => {
+    return history.push('/register');
+  }
   
   const { register, handleSubmit, errors } = useForm({
     validationSchema: schema
@@ -57,7 +62,7 @@ const LoginForm = (props)=>{
       return <Redirect to="/profile"></Redirect>;
   } else
       return (
-          <div className="h-screen flex justify-center items-center flex-col">
+          <div className="flex justify-center items-center flex-col">
               <div className="flex my-3 items-center">
                   <img
                       src={`${process.env.PUBLIC_URL}/dice.png`}
@@ -127,6 +132,10 @@ const LoginForm = (props)=>{
                           Login
                       </button>
                   </div>
+                  <div className="mt-3 justify-center inline-block flex w-100">
+                          <p className="text-xs text-gray-600 ">Don't have an account? </p>
+                          <button onClick={redirectRegister} className="text-xs text-blue-700 hover:text-white">Create one!</button>
+                    </div>
               </form>
               <p className="text-center text-gray-500 text-xs">
                   &copy;2020 Acme Corp. All rights reserved.

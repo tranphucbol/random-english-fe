@@ -1,13 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const RegisterForm = (props) => {
     const schema = yup.object().shape({
         Email: yup.string().required().email(),
 
-        password: yup.string().required().max(45),
+        password: yup.string().required().matches(
+            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+            "Must contains 8 characters, 1 uppercase, 1 lowercase and 1 number"
+          ),
 
         passwordConfirmation: yup
             .string()
@@ -62,6 +65,12 @@ const RegisterForm = (props) => {
                 }
             });
     };
+
+    const history = useHistory();
+
+    const redirectLogin = () => {
+        return history.push('/login');
+      }
 
     const { register, handleSubmit, errors } = useForm({
         validationSchema: schema,
@@ -192,6 +201,10 @@ const RegisterForm = (props) => {
                         >
                             Register
                         </button>
+                    </div>
+                    <div className="mt-3 justify-center inline-block flex w-100">
+                          <p className="text-xs text-gray-600 ">Already have an account? </p>
+                          <button onClick={redirectLogin} className="text-xs text-blue-700 hover:text-white">Login!</button>
                     </div>
                 </form>
                 <p className="text-center text-gray-500 text-xs">

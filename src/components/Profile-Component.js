@@ -14,7 +14,6 @@ const Profile = (props)=>{
       })
       .then(res => handleResponse(res))
       .then(resdata => {
-        console.log(resdata);
         props.setNewData(resdata);
       })
   }, []);

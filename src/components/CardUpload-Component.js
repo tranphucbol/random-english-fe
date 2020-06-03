@@ -106,7 +106,7 @@ const CardUploadForm = (props)=>{
       return <Redirect to="/login"></Redirect>
   } else
     return (
-    <div className="flex h-75 w-75" style={{justifyContent:"center",margin: '50px auto'}}>
+    <div className="flex h-75 w-100" style={{justifyContent:"center",margin: '50px auto'}}>
       <form className="flex w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="w-1/3 bg-gray-400 px-8 pt-6 pb-8 rounded">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">

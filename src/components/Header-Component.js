@@ -3,6 +3,11 @@ import {Redirect, useHistory} from 'react-router-dom';
 
 const UserDropdown = (props) => {
     const user = props.user;
+    const handleSignout = () => {
+        localStorage.removeItem('login');
+        props.removeCookie('authentication');
+        props.setNewData(null);
+    }
     const showDropdownFunc = () => {
         console.log(props.showDropdown);
         props.setShowDropdown(!props.showDropdown);
@@ -11,7 +16,7 @@ const UserDropdown = (props) => {
         return props.history.push('/login');
     }
 
-    if(user === undefined)
+    if(user === null)
     return(
         <div className="relative inline-block text-left">
             <div>
@@ -27,7 +32,7 @@ const UserDropdown = (props) => {
             <div>
                 <span className="rounded-md shadow-sm">
                 <button onClick={showDropdownFunc} type="button" className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150">
-                    Options
+                    {user.name}
                     <svg className="-mr-1 ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/>
                     </svg>
@@ -37,11 +42,9 @@ const UserDropdown = (props) => {
             <div className={" origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg"} hidden={!props.showDropdown}>
                 <div className="rounded-md bg-white shadow-xs">
                 <div className="py-1">
-                    <a href="#" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Account settings</a>
-                    <a href="#" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Support</a>
-                    <a href="#" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">License</a>
+                    <button onClick={()=>{props.history.push('/profile')}} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Profile</button>
                     <form method="POST" action="#">
-                    <button type="submit" className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+                    <button type="button" onClick={handleSignout} className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                         Sign out
                     </button>
                     </form>
@@ -51,6 +54,17 @@ const UserDropdown = (props) => {
             </div>
         )
     }
+}
+
+const CustomNavLink = (props) => {
+    return (
+        <button
+        onClick={(e)=>{return props.history.push(props.link)}}
+        style={{textShadow: '0 2px 4px rgba(0,0,0,10'}}
+        className="text-xl block mt-4 lg:inline-block lg:mt-0 text-white font-weight-bold text-white-600 hover:text-green-700 mr-4">
+            {props.text}
+        </button>
+    );
 }
 
 
@@ -74,8 +88,9 @@ const HeaderComponent = (props) => {
     }
 
     return(
-        <nav className="flex items-center justify-between flex-wrap p-6 bg-opacity-50"  style={{background: "linear-gradient(90deg, #233329 0%, #63D471 100%)"}}>
-
+        <nav className="mb-10 .shadow-md flex items-center justify-between flex-wrap p-2 bg-opacity-75 " 
+        style={{background:'linear-gradient(135deg, rgba(31,59,8,0.9) 0%, rgba(31,59,8,0.9) 45%, rgba(34,38,31,1) 84%, rgba(34,38,31,1) 100%)',
+        boxShadow:'0px 0px 10px 5px #888888'}}>
         <div className="flex items-center flex-shrink-0 text-white mr-6">
             <img
                 src={`${process.env.PUBLIC_URL}/dice.png`}
@@ -85,19 +100,17 @@ const HeaderComponent = (props) => {
             <span className="font-semibold text-xl tracking-tight pl-5">Random English</span>
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <a href="#responsive-header" className=" text-xl block mt-4 lg:inline-block lg:mt-0 text-white font-weight-bold hover:text-white mr-4">
-                Random
-            </a>
-            <a href="#responsive-header" className=" text-xl block mt-4 lg:inline-block lg:mt-0 text-white font-weight-bold hover:text-white mr-4">
-                Learn
-            </a>
+            <CustomNavLink history={history} text="Random" link="/card/random"></CustomNavLink>
+            <CustomNavLink history={history} text="Learn" link="/card/learn"></CustomNavLink>
+            {/* only logged in user can see this */}
+            {props.login && <CustomNavLink history={history} text="Upload" link="/card/upload"></CustomNavLink>}
             </div>
             <div>
             {/*USER DROPDOWN AND SEARCH BAR */}
             <div className="text-sm text-right lg:flex-grow">
             <input onChange={changeSearchQuery} onKeyDown={handleSearchRequest} type="search" className="bg-gray-200 focus:bg-white border-transparent focus:border-green-1000 shadow rounded border-2 p-3 mr-5" placeholder="Learn a specific word"></input>
             
-            <UserDropdown history={history} user={props.user} setShowDropdown={setShowDropdown} showDropdown={showDropdown}></UserDropdown>
+            <UserDropdown history={history} setNewData={props.setNewData} removeCookie={props.removeCookie} user={props.user} setShowDropdown={setShowDropdown} showDropdown={showDropdown}></UserDropdown>
             </div>
         </div>
         </nav>
