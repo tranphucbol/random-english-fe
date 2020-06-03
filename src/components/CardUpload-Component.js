@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import { Redirect } from 'react-router-dom';
-
+import handleResponse from '../helper/ResponseHandler'
 
 const InputField = (props) => {
   const propName= props.name;
@@ -51,11 +51,44 @@ const CardUploadForm = (props)=>{
 
   const [imgUpload,SetImgUpload] = useState(null);
 
+  const [collections,setCollections] = useState([]);
+
+  const [collection, setCollection] = useState(null);
+
+  useEffect(()=>{
+    // fetch(props.apiEndpoint+'/user/collections', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer ' + props.cookie,
+    //   },
+    //   })
+    //   .then(res => handleResponse(res))
+    //   .then(resdata => {
+    //     const collectionOptions = resdata.map(value =>
+    //       <option key={value} value={value}>{value}</option>);
+    //     setCollections(collections.concat(collectionOptions));
+    //   })
+    
+      const resdata = ['new','animal','tech','meme'];
+      const collectionOptions = resdata.map(value =>
+              <option key={value} value={value}>{value}</option>);
+            setCollections(collections.concat(collectionOptions));
+    },[]);
+
   const schema = yup.object().shape({
     Eng:yup.string().required(),
     Vie:yup.string().required(),
     Concept: yup.string().required(),
+    Collection: yup.string().required().oneOf(collections),
+    NewCollection: yup.string().notOneOf(collections).max(15)
     });
+
+  const onCollectionChanged = (e) => {
+      const newCol = e.target.value;
+      setCollection(newCol);
+  }
 
   const addExampleField = () => {
     const exampleName = examples.length;
@@ -117,6 +150,18 @@ const CardUploadForm = (props)=>{
         {imgUpload && <img alt="" src={imgUpload}></img>}
       </div>
       <div className="w-2/3 bg-gray-500 ml-5 rounded px-8 pt-6 pb-8">
+        <div className="inline w-1/2">
+          <label className="mr-2">Select a collection</label>   
+          <select onChange={onCollectionChanged} name="Collection" id="collection" ref={register}>
+            {collections && collections}
+          </select>
+        </div>
+        {collection && collection === 'new' &&
+          <div className="ml-5 inline w-1/2">
+            <label className="mr-2">New Collection Name</label>
+            <input type="text" name="NewCollection" ref={register}></input>
+          </div>
+        }
         <InputField name="Eng" placeholder="The word in English" register={register} errors={errors}></InputField>
         <InputField name="Vie" placeholder="The word in Vietnamese" register={register} errors={errors}></InputField>
         <InputField name="Concept" placeholder="Explain the word above" register={register} errors={errors}></InputField>
