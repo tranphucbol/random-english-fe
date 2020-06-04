@@ -5,10 +5,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import "../css/randomCard.css"
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { Redirect } from 'react-router-dom';
 
 
 const RandomCard = (props) => {
@@ -147,7 +145,7 @@ const RandomCard = (props) => {
               <div className="explain" id="EnExplain">Người phù rể chính nâng ly nói với cả phòng đầy khách rằng "<b>Bắt đầu cuộc vui nào</b>!"</div>
             </div>
             <div style={{ width: '15%', display: 'flex', alignItems: 'center' }}>
-              <button onClick={handleNext}><i className="fa fa-arrow-right" style={{ color: 'white', fontSize: '2rem' }}></i></button>
+              <button onClick={handleNext}><i className="fa fa-arrow-left" style={{ color: 'white', fontSize: '2rem' }}></i></button>
             </div>
           </div>}
         </ReactCSSTransitionGroup>}
