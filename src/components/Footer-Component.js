@@ -49,8 +49,8 @@ const FooterComponent = (props) => {
         // </div>
 
 
-        <div className="flex h-auto p-4 mt-10 bg-black bg-opacity-90 text-white align-stretch"
-        style={{boxShadow:'0px 0px 10px 5px #888888'}}
+        <div className="flex h-auto p-4 mt-10 text-white align-stretch"
+        style={{background:'rgba(51,54,59,.95)'}}
         >
             <div className="w-1/2 mt-2">
             &copy;2020 RandomEnglish Team. All rights reserved.

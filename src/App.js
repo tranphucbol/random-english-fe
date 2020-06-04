@@ -30,9 +30,9 @@ function App() {
   }
 
   return (
-    <div className="App relative content-center w-100 flex flex-col overflowx-scroll">
-      {checkOuter(location.pathname) && <HeaderComponent login={login} removeCookie={removeCookie} setNewData={setNewData} user={data}></HeaderComponent>}
-      <div id="mainContent" className="mt-auto mb-auto ml-5 mr-5 w-100">
+    <div className="container max-w-full min-h-screen flex flex-col justify-between" style={{background: 'linear-gradient(#10405f 10%, #005d96 100%)'}}>
+      {checkOuter(location.pathname) && <HeaderComponent login={login}justify removeCookie={removeCookie} setNewData={setNewData} user={data}></HeaderComponent>}
+      <div id="mainContent" className="container mx-auto min-h-full">
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <PrivateRoute path='/profile' component={Profile} login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
