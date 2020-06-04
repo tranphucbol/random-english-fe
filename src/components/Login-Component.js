@@ -36,7 +36,7 @@ const LoginForm = (props)=>{
     .then(res => {
       if(res.data && res.data.token != null){
         let expireDate = new Date();
-        expireDate.setTime(expireDate.getTime() + (15*60*1000)); // 15 min expiration
+        expireDate.setTime(expireDate.getTime() + (24*3600*1000)); // 15 min expiration
         localStorage.setItem("login","true");
         props.setCookie('authentication',res.data.token,{
           expires: expireDate,
@@ -62,14 +62,15 @@ const LoginForm = (props)=>{
       return <Redirect to="/profile"></Redirect>;
   } else
       return (
-          <div className="flex justify-center items-center flex-col">
+        <div className="container w-100 h-screen flex flex-col justify-center align-items">
+            <div className="flex justify-center items-center flex-col">
               <div className="flex my-3 items-center">
                   <img
                       src={`${process.env.PUBLIC_URL}/dice.png`}
                       alt="logo"
                       width="50"
                   ></img>
-                  <h2 className="ml-3 text-2xl text-gray-700 font-bold">
+                  <h2 className="ml-3 text-2xl text-gray-200 font-bold">
                       Random English
                   </h2>
               </div>
@@ -134,18 +135,20 @@ const LoginForm = (props)=>{
                   </div>
                   <div className="mt-3 justify-center inline-block flex w-100">
                           <p className="text-xs text-gray-600 ">Don't have an account? </p>
-                          <button onClick={()=>{redirect('/register')}} className="text-xs text-blue-700 hover:text-white">Create one!</button>
+                          <button onClick={()=>{redirect('/register')}} className="text-xs text-blue-700 hover:text-white ml-2">Create one!</button>
                     </div>
 
                   <div className="mt-3 justify-center inline-block flex w-100">
                     <p className="text-xs text-gray-600 ">Forgot your password? </p>
-                    <button onClick={()=>{redirect('/reset-password')}} className="text-xs text-blue-700 hover:text-white">Reset it!</button>
+                    <button onClick={()=>{redirect('/reset-password')}} className="text-xs text-blue-700 hover:text-white ml-2">Reset it!</button>
               </div>
               </form>
               <p className="text-center text-gray-500 text-xs">
                   &copy;2020 Acme Corp. All rights reserved.
               </p>
           </div>
+        </div>
+         
       );
 };
 

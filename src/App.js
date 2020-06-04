@@ -28,7 +28,8 @@ function App() {
     console.log(pathName);
     if (['/login', '/register', '/reset-password'].includes(pathName)) {
       return false;
-    } return true;
+    } 
+    return true;
   }
 
   return (
