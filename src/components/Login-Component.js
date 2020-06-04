@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React,{useState} from 'react';
+import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import { Redirect ,useHistory} from 'react-router-dom';
 
@@ -84,33 +84,52 @@ const LoginForm = (props)=>{
                       >
                           Email
                       </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="password"
-                            name="password"
-                            type="password"
-                            placeholder="******************"
-                            ref={register}
-                        />
-                        <p className="text-left text-red-700 text-xs">
-                            {errors?.password?.message}
-                        </p>
-                    </div>
-                    <div
-                        className="flex items-center justify-between text-red-700 text-xs padding mb-4"
-                        style={{ justifyContent: "center" }}
-                    >
+                      <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="Email"
+                          name="Email"
+                          type="text"
+                          placeholder="Email"
+                          ref={register}
+                      />
+                      <p className="text-left text-red-700 text-xs">
+                      {errors?.Email?.message}
+                      </p>
+                  </div>
+                  <div className="mb-6">
+                      <label
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                          htmlFor="password"
+                      >
+                          Password
+                      </label>
+                      <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="password"
+                          name="password"
+                          type="password"
+                          placeholder="******************"
+                          ref={register}
+                      />
+                      <p className="text-left text-red-700 text-xs">
+                          {errors?.password?.message}
+                      </p>
+                  </div>
+                  <div
+                      className="flex items-center justify-between text-red-700 text-xs padding mb-4"
+                      style={{ justifyContent: "center" }} 
+                      >
                         {loginErr && loginErr}
-                    </div>
-                    <div
-                        className="flex items-center justify-between"
-                        style={{ justifyContent: "center" }}
-                    >
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit"
-                        >
-                            Login
+                  </div>
+                  <div
+                      className="flex items-center justify-between"
+                      style={{ justifyContent: "center" }}
+                  >
+                      <button
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="submit"
+                      >
+                          Login
                       </button>
                   </div>
                   <div className="mt-3 justify-center inline-block flex w-100">
@@ -126,8 +145,8 @@ const LoginForm = (props)=>{
               <p className="text-center text-gray-500 text-xs">
                   &copy;2020 Acme Corp. All rights reserved.
               </p>
-            </div>
-        );
+          </div>
+      );
 };
 
 export default LoginForm;
