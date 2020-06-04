@@ -75,13 +75,15 @@ const CardUploadForm = (props)=>{
       //fetch data here
       const resdata = ['animal','tech','meme'];
 
+
+      resdata.unshift('new');
       setCollectionVal(rawCollectionVal.concat(resdata));
 
       const collectionOptions = resdata.map(value =>
               <option key={value} value={value}>{value}</option>);
       if(collectionOptions.length > 0){
             setCollections(collections.concat(collectionOptions));
-            setCollection(resdata[0]);
+            setCollection(resdata[1]);
       }
       else{
         setCollections(collections.concat(<option selected key={'new'} value={'new'}>{'new'}</option>));
@@ -93,8 +95,11 @@ const CardUploadForm = (props)=>{
     Eng:yup.string().required(),
     Vie:yup.string().required(),
     Concept: yup.string().required(),
-    Collection: yup.string().required().oneOf(rawCollectionVal),
-    NewCollection: yup.string().notOneOf(collections).max(15)
+    Collection: yup.string().required(),
+    NewCollection: yup.string().notOneOf(collections).max(15).when('Collection',{
+      is: 'new',
+      then: yup.string().required()
+    })
     });
 
   const onCollectionChanged = (e) => {
@@ -162,18 +167,27 @@ const CardUploadForm = (props)=>{
         {imgUpload && <img alt="" src={imgUpload}></img>}
       </div>
       <div className="w-2/3 bg-gray-500 ml-5 rounded px-8 pt-6 pb-8">
-        <div className="inline w-1/2">
-          <label className="mr-2">Select a collection</label>   
-          <select onChange={onCollectionChanged} value={collection} name="Collection" id="collection" ref={register}>
+        <div className="inline w-1/2 mb-4">
+          <label className="mr-2 inline-block text-gray-700 text-sm font-bold mb-2">Select a collection</label>   
+          
+          <div className="inline-block relative w-32">
+            <select onChange={onCollectionChanged} value={collection} name="Collection" id="collection" ref={register} className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-1 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
             {collections && collections}
-          </select>
-        </div>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            </div>
+          </div>
+          </div>
         {collection && collection === 'new' &&
           <div className="ml-5 inline w-1/2">
-            <label className="mr-2">New Collection Name</label>
-            <input type="text" name="NewCollection" ref={register}></input>
+            <label className="mr-2 inline-block text-gray-700 text-sm font-bold">New Collection Name</label>
+            <input className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline0" type="text" name="NewCollection" ref={register}></input>
           </div>
         }
+        <p className="text-left text-red-700 text-xs">{errors['Collection']?errors['Collection'].message:null}</p>
+        <p className="text-left text-red-700 text-xs">{errors['NewCollection']?errors['NewCollection'].message:null}</p>
+        
         <InputField name="Eng" placeholder="The word in English" register={register} errors={errors}></InputField>
         <InputField name="Vie" placeholder="The word in Vietnamese" register={register} errors={errors}></InputField>
         <InputField name="Concept" placeholder="Explain the word above" register={register} errors={errors}></InputField>
