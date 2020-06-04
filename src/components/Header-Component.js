@@ -4,12 +4,12 @@ import {Redirect, useHistory} from 'react-router-dom';
 const UserDropdown = (props) => {
     const user = props.user;
     const handleSignout = () => {
+        console.log('alo');
         localStorage.removeItem('login');
         props.removeCookie('authentication');
         props.setNewData(null);
     }
     const showDropdownFunc = () => {
-        console.log(props.showDropdown);
         props.setShowDropdown(!props.showDropdown);
     }
     const redirectLogin = () => {
@@ -44,7 +44,7 @@ const UserDropdown = (props) => {
                 <div className="py-1">
                     <button onClick={()=>{props.history.push('/profile')}} className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Profile</button>
                     <form method="POST" action="#">
-                    <button type="button" onClick={handleSignout} className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
+                    <button type="button" onMouseDown={handleSignout} className="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                         Sign out
                     </button>
                     </form>
@@ -97,22 +97,25 @@ const HeaderComponent = (props) => {
                 alt="logo"
                 width="54">
             </img>
-            <span className="font-semibold text-xl tracking-tight pl-5">Random English</span>
+            <button
+                onClick={()=> {history.push('/')}}
+                style={{textShadow: '0 1px 2px rgba(0,0,0,10'}}
+                className="text-2xl track:tight block ml-4 mr-3 mt-1 lg:inline-block lg:mt-0 text-white font-weight-bold text-white-600 hover:text-green-700 mr-4">
+                    Random English
+            </button>
         </div>
-        <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div className="w-75 block flex-grow lg:flex lg:items-center">
             <CustomNavLink history={history} text="Random" link="/card/random"></CustomNavLink>
             <CustomNavLink history={history} text="Learn" link="/card/learn"></CustomNavLink>
             {/* only logged in user can see this */}
             {props.login && <CustomNavLink history={history} text="Upload" link="/card/upload"></CustomNavLink>}
             </div>
-            <div>
             {/*USER DROPDOWN AND SEARCH BAR */}
-            <div className="text-sm text-right lg:flex-grow">
-            <input onChange={changeSearchQuery} onKeyDown={handleSearchRequest} type="search" className="bg-gray-200 focus:bg-white border-transparent focus:border-green-1000 shadow rounded border-2 p-3 mr-5" placeholder="Learn a specific word"></input>
+            <div className="text-xs text-right flex-grow">
+            <input onChange={changeSearchQuery} onKeyDown={handleSearchRequest} type="search" className="w-7/12 bg-gray-200 focus:bg-white border-transparent focus:border-green-1000 shadow rounded border-2 p-3 mr-5 inline-block" placeholder="Learn a specific word"></input>
             
             <UserDropdown history={history} setNewData={props.setNewData} removeCookie={props.removeCookie} user={props.user} setShowDropdown={setShowDropdown} showDropdown={showDropdown}></UserDropdown>
             </div>
-        </div>
         </nav>
     );
 }

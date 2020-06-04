@@ -3,55 +3,33 @@ import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import { Redirect ,useHistory} from 'react-router-dom';
 
-const LoginForm = (props)=>{
-  const [loginErr,setLoginErr] = useState(null);
+const ResetPasswordForm = (props)=>{
+  const [response,setResponse] = useState(null);
   const history = useHistory();
 
   const schema = yup.object().shape({
     Email: yup
       .string()
       .required()
-      .email(),
-    password: yup
-      .string()
-      .required()
-      .max(45),
+      .email()
   });
   
   const onSubmit = data => {
-    setLoginErr(null);
-    // truyen xuong back-end + render /profile
-    fetch(props.apiEndpoint+'/users/login', {
+    setResponse(null);
+    fetch(props.apiEndpoint+'/users/resetPassword', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      email: data.Email,
-      password: data.password
+      email: data.Email
       })
     })
     .then(res => res.json())
     .then(res => {
-      if(res.data && res.data.token != null){
-        let expireDate = new Date();
-        expireDate.setTime(expireDate.getTime() + (15*60*1000)); // 15 min expiration
-        localStorage.setItem("login","true");
-        props.setCookie('authentication',res.data.token,{
-          expires: expireDate,
-          path: '/',
-          httpOnly: false,
-        });
-      }
-      if(res.status === 0){
-        setLoginErr(res.message);
-      }
-    })
-  }
-
-  const redirect = (to) => {
-    return history.push(to);
+        setResponse(res.message);
+      });
   }
   
   const { register, handleSubmit, errors } = useForm({
@@ -96,30 +74,11 @@ const LoginForm = (props)=>{
                           {errors?.Email?.message}
                       </p>
                   </div>
-                  <div className="mb-6">
-                      <label
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                          htmlFor="password"
-                      >
-                          Password
-                      </label>
-                      <input
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          id="password"
-                          name="password"
-                          type="password"
-                          placeholder="******************"
-                          ref={register}
-                      />
-                      <p className="text-left text-red-700 text-xs">
-                          {errors?.password?.message}
-                      </p>
-                  </div>
                   <div
-                      className="flex items-center justify-between text-red-700 text-xs padding mb-4"
+                      className="flex items-center justify-between text-yellow-700 text-md padding mb-4"
                       style={{ justifyContent: "center" }} 
                       >
-                        {loginErr && loginErr}
+                        {response && response}
                   </div>
                   <div
                       className="flex items-center justify-between"
@@ -129,24 +88,16 @@ const LoginForm = (props)=>{
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                           type="submit"
                       >
-                          Login
+                          Reset your password
                       </button>
                   </div>
                   <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-xs text-gray-600 ">Don't have an account? </p>
-                          <button onClick={()=>{redirect('/register')}} className="text-xs text-blue-700 hover:text-white">Create one!</button>
+                          <p className="text-xs text-gray-600 mr-1">Back to </p>
+                          <button onClick={() => {history.push('/login')}} className="text-xs text-blue-700 hover:text-white">login</button>
                     </div>
-
-                  <div className="mt-3 justify-center inline-block flex w-100">
-                    <p className="text-xs text-gray-600 ">Forgot your password? </p>
-                    <button onClick={()=>{redirect('/reset-password')}} className="text-xs text-blue-700 hover:text-white">Reset it!</button>
-              </div>
               </form>
-              <p className="text-center text-gray-500 text-xs">
-                  &copy;2020 Acme Corp. All rights reserved.
-              </p>
           </div>
       );
 };
 
-export default LoginForm;
+export default ResetPasswordForm;

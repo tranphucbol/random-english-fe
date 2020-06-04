@@ -53,7 +53,9 @@ const CardUploadForm = (props)=>{
 
   const [collections,setCollections] = useState([]);
 
-  const [collection, setCollection] = useState(null);
+  const [collection, setCollection] = useState('new');
+
+  const [rawCollectionVal, setCollectionVal] = useState([]);
 
   useEffect(()=>{
     // fetch(props.apiEndpoint+'/user/collections', {
@@ -70,18 +72,28 @@ const CardUploadForm = (props)=>{
     //       <option key={value} value={value}>{value}</option>);
     //     setCollections(collections.concat(collectionOptions));
     //   })
-    
-      const resdata = ['new','animal','tech','meme'];
+      //fetch data here
+      const resdata = ['animal','tech','meme'];
+
+      setCollectionVal(rawCollectionVal.concat(resdata));
+
       const collectionOptions = resdata.map(value =>
               <option key={value} value={value}>{value}</option>);
+      if(collectionOptions.length > 0){
             setCollections(collections.concat(collectionOptions));
+            setCollection(resdata[0]);
+      }
+      else{
+        setCollections(collections.concat(<option selected key={'new'} value={'new'}>{'new'}</option>));
+        setCollection('new');
+      }
     },[]);
 
   const schema = yup.object().shape({
     Eng:yup.string().required(),
     Vie:yup.string().required(),
     Concept: yup.string().required(),
-    Collection: yup.string().required().oneOf(collections),
+    Collection: yup.string().required().oneOf(rawCollectionVal),
     NewCollection: yup.string().notOneOf(collections).max(15)
     });
 
@@ -106,12 +118,12 @@ const CardUploadForm = (props)=>{
     let i =0;
     data['examples'] = [];
     for(i = 0; i < examples.length;i++){
-      if(!data[i+'English'] === "" && !data[i+'Vietnamese'] === ""){
+      // if(!data[i+'English'] || !data[i+'Vietnamese']){
         data['examples'].push({
           "English": data[i+'English'],
           "Vietnamese": data[i+'Vietnamese']
         })
-      }
+      // }
       delete data[i+'English'];
       delete data[i+'Vietnamese'];
     }
@@ -138,7 +150,7 @@ const CardUploadForm = (props)=>{
   if(props.login){
       return <Redirect to="/login"></Redirect>
   } else
-    return (
+    return (  
     <div className="flex h-75 w-100" style={{justifyContent:"center",margin: '50px auto'}}>
       <form className="flex w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="w-1/3 bg-gray-400 px-8 pt-6 pb-8 rounded">
@@ -152,7 +164,7 @@ const CardUploadForm = (props)=>{
       <div className="w-2/3 bg-gray-500 ml-5 rounded px-8 pt-6 pb-8">
         <div className="inline w-1/2">
           <label className="mr-2">Select a collection</label>   
-          <select onChange={onCollectionChanged} name="Collection" id="collection" ref={register}>
+          <select onChange={onCollectionChanged} value={collection} name="Collection" id="collection" ref={register}>
             {collections && collections}
           </select>
         </div>
