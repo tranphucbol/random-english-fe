@@ -80,7 +80,7 @@ const LoginForm = (props)=>{
               >
                   <div className="mb-4">
                       <label
-                          className="block text-gray-700 text-sm font-bold mb-2"
+                          className="block text-gray-700 font-bold mb-2"
                           htmlFor="Email"
                       >
                           Email
@@ -93,13 +93,13 @@ const LoginForm = (props)=>{
                           placeholder="Email"
                           ref={register}
                       />
-                      <p className="text-left text-red-700 text-xs">
+                      <p className="text-left text-red-700 text-sm">
                       {errors?.Email?.message}
                       </p>
                   </div>
                   <div className="mb-6">
                       <label
-                          className="block text-gray-700 text-sm font-bold mb-2"
+                          className="block text-gray-700 font-bold mb-2"
                           htmlFor="password"
                       >
                           Password
@@ -112,12 +112,12 @@ const LoginForm = (props)=>{
                           placeholder="******************"
                           ref={register}
                       />
-                      <p className="text-left text-red-700 text-xs">
+                      <p className="text-left text-red-700 text-sm">
                           {errors?.password?.message}
                       </p>
                   </div>
                   <div
-                      className="flex items-center justify-between text-red-700 text-xs padding mb-4"
+                      className="flex items-center justify-between text-red-700 text-sm padding mb-4"
                       style={{ justifyContent: "center" }} 
                       >
                         {loginErr && loginErr}
@@ -134,16 +134,16 @@ const LoginForm = (props)=>{
                       </button>
                   </div>
                   <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-xs text-gray-600 ">Don't have an account? </p>
-                          <button onClick={()=>{redirect('/register')}} className="text-xs text-blue-700 hover:text-white ml-2">Create one!</button>
+                          <p className="text-sm text-gray-600 ">Don't have an account? </p>
+                          <button onClick={()=>{redirect('/register')}} className="text-sm text-blue-700 hover:text-white ml-2">Create one!</button>
                     </div>
 
                   <div className="mt-3 justify-center inline-block flex w-100">
-                    <p className="text-xs text-gray-600 ">Forgot your password? </p>
-                    <button onClick={()=>{redirect('/reset-password')}} className="text-xs text-blue-700 hover:text-white ml-2">Reset it!</button>
+                    <p className="text-sm text-gray-600 ">Forgot your password? </p>
+                    <button onClick={()=>{redirect('/reset-password')}} className="text-sm text-blue-700 hover:text-white ml-2">Reset it!</button>
               </div>
               </form>
-              <p className="text-center text-gray-500 text-xs">
+              <p className="text-center text-gray-500 text-sm">
                   &copy;2020 Acme Corp. All rights reserved.
               </p>
           </div>

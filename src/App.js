@@ -5,8 +5,8 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom'
 import './css/tailwind.css'
 import LoginForm from "./components/Login-Component";
 import RegisterForm from "./components/Register-Component";
-import CardUploadForm from "./components/CardUpload-Component";
-import HeaderComponent from "./components/Header-Component";
+import CardUploadForm from "./components/CardUpload/CardUpload-Component";
+import HeaderComponent from "./components/Header/Header-Component";
 import Profile from "./components/Profile-Component";
 import RandomCard from "./components/RandomCard-Component"
 import FooterComponent from "./components/Footer-Component";

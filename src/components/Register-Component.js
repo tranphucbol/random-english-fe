@@ -98,7 +98,7 @@ const RegisterForm = (props) => {
                 >
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="Email"
                         >
                             Email
@@ -111,13 +111,13 @@ const RegisterForm = (props) => {
                             placeholder="example@gmail.com"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.Email?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="password"
                         >
                             Password
@@ -130,13 +130,13 @@ const RegisterForm = (props) => {
                             placeholder="******************"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.password?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="passwordConfirmation"
                         >
                             Re-Password
@@ -149,13 +149,13 @@ const RegisterForm = (props) => {
                             placeholder="******************"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.passwordConfirmation?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="name"
                         >
                             Full Name
@@ -168,13 +168,13 @@ const RegisterForm = (props) => {
                             placeholder="Kha Tran Minh"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.name?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="phoneNumber"
                         >
                             Phone Number (Raw numbers)
@@ -187,7 +187,7 @@ const RegisterForm = (props) => {
                             placeholder="0482246257"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.phoneNumber?.message}
                         </p>
                     </div>
@@ -203,11 +203,11 @@ const RegisterForm = (props) => {
                         </button>
                     </div>
                     <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-xs text-gray-600 ">Already have an account? </p>
-                          <button onClick={redirectLogin} className="text-xs text-blue-700 hover:text-white">Login!</button>
+                          <p className="text-sm text-gray-600 ">Already have an account? </p>
+                          <button onClick={redirectLogin} className="text-sm text-blue-700 hover:text-white">Login!</button>
                     </div>
                 </form>
-                <p className="text-center text-gray-500 text-xs">
+                <p className="text-center text-gray-500 text-sm">
                     &copy;2020 Acme Corp. All rights reserved.
                 </p>
             </div>

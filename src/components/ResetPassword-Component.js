@@ -57,7 +57,7 @@ const ResetPasswordForm = (props)=>{
               >
                   <div className="mb-4">
                       <label
-                          className="block text-gray-700 text-sm font-bold mb-2"
+                          className="block text-gray-700 font-bold mb-2"
                           htmlFor="Email"
                       >
                           Email
@@ -70,7 +70,7 @@ const ResetPasswordForm = (props)=>{
                           placeholder="Email"
                           ref={register}
                       />
-                      <p className="text-left text-red-700 text-xs">
+                      <p className="text-left text-red-700 text-sm">
                           {errors?.Email?.message}
                       </p>
                   </div>
@@ -92,8 +92,8 @@ const ResetPasswordForm = (props)=>{
                       </button>
                   </div>
                   <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-xs text-gray-600 mr-1">Back to </p>
-                          <button onClick={() => {history.push('/login')}} className="text-xs text-blue-700 hover:text-white">login</button>
+                          <p className="text-sm text-gray-600 mr-1">Back to </p>
+                          <button onClick={() => {history.push('/login')}} className="text-sm text-blue-700 hover:text-white">login</button>
                     </div>
               </form>
           </div>

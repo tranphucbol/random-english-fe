@@ -2,77 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Redirect } from "react-router-dom";
-import handleResponse from "../helper/ResponseHandler";
-
-const InputField = (props) => {
-  const propName = props.name;
-  const errors = props.errors ? props.errors[propName] : null;
-  return (
-    <div className="mb-4">
-      <label
-        className="block text-gray-700 text-sm font-bold mb-2"
-        htmlFor={props.name}
-      >
-        {props.name}
-      </label>
-      <input
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id={props.name}
-        name={props.name}
-        type={props.type}
-        placeholder={props.placeholder}
-        ref={props.register}
-      />
-      <p className="text-left text-red-700 text-xs">
-        {errors ? errors.message : null}
-      </p>
-    </div>
-  );
-};
-
-const ExampleField = (props) => {
-  const exampleName = "Example " + props.name;
-  const engName = "English";
-  const vieName = "Vietnamese";
-
-  return (
-    <div className="mb-4 border rounded px-8 pt-6 pb-8 mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2">
-        {exampleName}
-      </label>
-
-      <label
-        className="block text-gray-700 text-sm font-bold mb-2"
-        htmlFor={engName}
-      >
-        {engName}
-      </label>
-      <input
-        className="shadow appearance-none mb-2 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id={engName}
-        name={props.name + engName}
-        type={props.type}
-        placeholder={props.placeholder}
-        ref={props.register}
-      />
-
-      <label
-        className="block text-gray-700 text-sm font-bold mb-2"
-        htmlFor={vieName}
-      >
-        {vieName}
-      </label>
-      <input
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id={vieName}
-        name={props.name + vieName}
-        type={props.type}
-        placeholder={props.placeholder}
-        ref={props.register}
-      />
-    </div>
-  );
-};
+import handleResponse from "../../helper/ResponseHandler";
+import ExampleField from "./ExampleField"
+import InputField from "./InputField"
 
 const CardUploadForm = (props) => {
   const [examples, setExamples] = useState([]);
@@ -211,7 +143,7 @@ const CardUploadForm = (props) => {
                 name="Image"
                 onChange={handleImageUpload}
               ></input>
-              <p className="text-left text-red-700 text-xs">
+              <p className="text-left text-red-700 text-sm">
                 {errors["Image"] && errors["Image"].message}
               </p>
               {imgUpload && <img alt="" src={imgUpload}></img>}
