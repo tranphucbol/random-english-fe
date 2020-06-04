@@ -23,7 +23,7 @@ const RandomCard = (props) => {
 
   useEffect(() => {
     console.log('use effect')
-    fetch('https://random-english.herokuapp.com/api/words/random-question', {
+    fetch('http://128.199.168.137:3637/api/words/random-question', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -143,11 +143,11 @@ const RandomCard = (props) => {
           {doneAnswer && <div key="explainPanel" style={{ width: '50%', display: 'flex' }}>
             <div style={{ width: '85%', padding: '20px', color: 'white' }}>
               <b style={{ "fontSize": '1.4rem' }}>Ví dụ:</b>
-              <div className="explain" id="ViExplain">Người phù rể chính nâng ly nói với cả phòng đầy khách rằng "<b>Bắt đầu cuộc vui nào</b>!"</div>
-              <div className="explain" id="EnExplain">Người phù rể chính nâng ly nói với cả phòng đầy khách rằng "<b>Bắt đầu cuộc vui nào</b>!"</div>
+                {<div className="explain" id="ViExplain" dangerouslySetInnerHTML={{'__html':data.examples[0].vie}}></div>}
+              {<div className="explain" id="EnExplain" dangerouslySetInnerHTML={{'__html': data.examples[0].eng}}></div>}
             </div>
             <div style={{ width: '15%', display: 'flex', alignItems: 'center' }}>
-              <button onClick={handleNext}><i className="fa fa-arrow-right" style={{ color: 'white', fontSize: '2rem' }}></i></button>
+              <button onClick={handleNext}><i className="fa fa-arrow-left" style={{ color: 'white', fontSize: '2rem' }}></i></button>
             </div>
           </div>}
         </ReactCSSTransitionGroup>}
