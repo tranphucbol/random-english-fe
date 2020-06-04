@@ -105,7 +105,7 @@ const RandomCard = (props) => {
   }
 
   return (
-    <div className="rowBox container-fluid" style={{ "maxWidth": "100%", 'width': '100%', 'display': 'flex', 'alignItems': 'center', justifyContent: 'center', 'height': '100vh', "backgroundColor": "#0c4c74", }}  >
+    <div className="rowBox container-fluid" style={{ "maxWidth": "100%", 'width': '100%', 'display': 'flex', 'alignItems': 'center', }}  >
       <ReactCSSTransitionGroup className="container"
         transitionName='question-appear'
         transitionAppear={true}

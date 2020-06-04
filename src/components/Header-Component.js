@@ -88,9 +88,8 @@ const HeaderComponent = (props) => {
     }
 
     return(
-        <nav className="mb-10 .shadow-md flex items-center justify-between flex-wrap p-2 bg-opacity-75 " 
-        style={{background:'linear-gradient(135deg, rgba(31,59,8,0.9) 0%, rgba(31,59,8,0.9) 45%, rgba(34,38,31,1) 84%, rgba(34,38,31,1) 100%)',
-        boxShadow:'0px 0px 10px 5px #888888'}}>
+        <nav className="mb-10 flex items-center justify-between flex-wrap p-2 bg-opacity-75 " 
+        style={{background:'rgba(51,54,59,.95)'}}>
         <div className="flex items-center flex-shrink-0 text-white mr-6">
             <img
                 src={`${process.env.PUBLIC_URL}/dice.png`}
