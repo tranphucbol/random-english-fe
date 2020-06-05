@@ -102,7 +102,7 @@ const LoginForm = (props)=>{
                           className="block text-gray-700 font-bold mb-2"
                           htmlFor="password"
                       >
-                          Password
+                          Mật khẩu 
                       </label>
                       <input
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -134,13 +134,12 @@ const LoginForm = (props)=>{
                       </button>
                   </div>
                   <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-sm text-gray-600 ">Don't have an account? </p>
-                          <button onClick={()=>{redirect('/register')}} className="text-sm text-blue-700 hover:text-white ml-2">Create one!</button>
+                          <p className="text-sm text-gray-600 ">Bạn chưa có tài khoản? </p>
+                          <button onClick={()=>{redirect('/register')}} className="text-sm text-blue-700 hover:text-white ml-2">Tạo ngay</button>
                     </div>
-
                   <div className="mt-3 justify-center inline-block flex w-100">
-                    <p className="text-sm text-gray-600 ">Forgot your password? </p>
-                    <button onClick={()=>{redirect('/reset-password')}} className="text-sm text-blue-700 hover:text-white ml-2">Reset it!</button>
+                    <p className="text-sm text-gray-600 ">Quên mật khẩu? </p>
+                    <button onClick={()=>{redirect('/reset-password')}} className="text-sm text-blue-700 hover:text-white ml-2">Đặt lại mật khẩu</button>
               </div>
               </form>
               <p className="text-center text-gray-500 text-sm">
@@ -148,7 +147,6 @@ const LoginForm = (props)=>{
               </p>
           </div>
         </div>
-         
       );
 };
 

@@ -120,14 +120,14 @@ const RegisterForm = (props) => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="password"
                         >
-                            Password
+                            Mật khẩu
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
                             name="password"
                             id="password"
                             type="password"
-                            placeholder="******************"
+                            placeholder="Ít nhất 1 ký tự hoa, thường và số"
                             ref={register}
                         />
                         <p className="text-left text-red-700 text-sm">
@@ -139,14 +139,14 @@ const RegisterForm = (props) => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="passwordConfirmation"
                         >
-                            Re-Password
+                            Nhập lại mật khẩu
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
                             name="passwordConfirmation"
                             id="passwordConfirmation"
                             type="password"
-                            placeholder="******************"
+                            placeholder=""
                             ref={register}
                         />
                         <p className="text-left text-red-700 text-sm">
@@ -158,7 +158,7 @@ const RegisterForm = (props) => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="name"
                         >
-                            Full Name
+                            Họ và tên
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
@@ -177,7 +177,7 @@ const RegisterForm = (props) => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor="phoneNumber"
                         >
-                            Phone Number (Raw numbers)
+                            Số điện thoại
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
@@ -203,8 +203,8 @@ const RegisterForm = (props) => {
                         </button>
                     </div>
                     <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-sm text-gray-600 ">Already have an account? </p>
-                          <button onClick={redirectLogin} className="text-sm text-blue-700 hover:text-white">Login!</button>
+                          <p className="text-sm text-gray-600 ">Bạn đã có tài khoản? </p>
+                          <button onClick={redirectLogin} className="text-sm text-blue-700 hover:text-white">Đăng nhập!</button>
                     </div>
                 </form>
                 <p className="text-center text-gray-500 text-sm">

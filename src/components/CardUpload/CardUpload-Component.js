@@ -32,10 +32,8 @@ const CardUploadForm = (props) => {
     //       <option key={value} value={value}>{value}</option>);
     //     setCollections(collections.concat(collectionOptions));
     //   })
-    //fetch data here
+    //fetch categories here
     const resdata = ["animal", "tech", "meme"];
-
-
       resdata.unshift('new');
       setCollectionVal(rawCollectionVal.concat(resdata));
 
@@ -132,7 +130,7 @@ const CardUploadForm = (props) => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="w-1/3 bg-gray-400 rounded-lg shadow-lg">
-            <h2 className="p-3 bg-white rounded-t-lg text-lg">Image upload</h2>
+            <h2 className="p-3 bg-white rounded-t-lg text-lg">Upload ảnh</h2>
             <div className="p-3">
               <input
                 accept="image/*"
@@ -150,9 +148,9 @@ const CardUploadForm = (props) => {
             </div>
           </div>
           <div className="w-2/3 bg-gray-500 ml-5 rounded-lg shadow-lg">
-            <h2 className="p-3 bg-white rounded-t-lg text-lg">Information</h2>
+            <h2 className="p-3 bg-white rounded-t-lg text-lg">Thông tin thẻ</h2>
             <div className="p-3">
-              <h2 className="mb-2">Select a collection</h2>
+              <h2 className="mb-2">Phân loại từ</h2>
               <div className="relative">
                 {/* <label className="mr-2">Select a collection</label> */}
                 <select
@@ -171,7 +169,7 @@ const CardUploadForm = (props) => {
               </div>
               {collection && collection === "new" && (
                 <div className="ml-5 inline w-1/2">
-                  <label className="mr-2">New Collection Name</label>
+                  <label className="mr-2">Phân loại mới</label>
                   <input
                     type="text"
                     name="NewCollection"
@@ -183,18 +181,21 @@ const CardUploadForm = (props) => {
                 name="Eng"
                 placeholder="The word in English"
                 register={register}
+                display="Tiếng Anh"
                 errors={errors}
               ></InputField>
               <InputField
                 name="Vie"
                 placeholder="The word in Vietnamese"
                 register={register}
+                display="Tiếng Việt"
                 errors={errors}
               ></InputField>
               <InputField
                 name="Concept"
                 placeholder="Explain the word above"
                 register={register}
+                display="Nghĩa của từ"
                 errors={errors}
               ></InputField>
 
@@ -203,7 +204,7 @@ const CardUploadForm = (props) => {
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mb-4"
                 onClick={addExampleField}
               >
-                Add an example
+                Thêm ví dụ
               </button>
               <div>{examples && examples}</div>
 
@@ -215,7 +216,7 @@ const CardUploadForm = (props) => {
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                  Save this card
+                  Lưu
                 </button>
               </div>
             </div>

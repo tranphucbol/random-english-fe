@@ -7,7 +7,7 @@ import LoginForm from "./components/Login-Component";
 import RegisterForm from "./components/Register-Component";
 import CardUploadForm from "./components/CardUpload/CardUpload-Component";
 import HeaderComponent from "./components/Header/Header-Component";
-import Profile from "./components/Profile-Component";
+import Profile from "./components/Profile/Profile-Component";
 import RandomCard from "./components/RandomCard-Component"
 import FooterComponent from "./components/Footer-Component";
 import ResetPasswordForm from "./components/ResetPassword-Component";
