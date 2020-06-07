@@ -21,10 +21,14 @@
 .pagination{
     display: flex;
     justify-content: flex-end;
-    margin: 0 20px;
+    margin: 15px 0;
 }
 
-.pagination >li >a{
+/* .pagination > li:last-child > a {
+    border-radius:0 .25rem .25rem 0;
+}
+
+.pagination >li > a{
     position: relative;
     float: left;
     padding: 6px 12px;
@@ -39,26 +43,24 @@
 .pagination .active > a{  
     background-color: #ddd;
     border: 1px solid #ddd;
-}
+} */
 
 .btnPublish{
     padding: 0 10px;
     font-size: 12pt;
 }
 .progress{
-    height: 20px;
-    background-color: #ddd;
+    background-color: #edf2f9;
     border-radius: 5px;
-    border: 1px solid #4299e1;
+    height: 10px;
+    /* border: 1px solid #4299e1; */
 }
 
 .progress-bar{
-    background-color: #4299e1;
-    height: 100%;
-    color: white;
-    font-size: 10pt;
+    background: linear-gradient(-45deg,#1970e2,#4695ff); ;
     border-radius: 5px;
-    border: 1px solid #4299e1;
+    height: 100%;
+    /* border: 1px solid #4299e1; */
 }
 .categories-panel:hover{
     cursor: pointer;

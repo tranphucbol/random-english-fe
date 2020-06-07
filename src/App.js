@@ -12,12 +12,13 @@ import LearnCard from "./components/LearnCard-Component"
 import RandomCard from "./components/RandomCard-Component"
 import FooterComponent from "./components/Footer-Component";
 import ResetPasswordForm from "./components/ResetPassword-Component";
-import MyCategories from "./components/MyCategories-Component"
+import MyCategories from "./components/categories/MyCategories"
+import PublicCategories from "./components/categories/PublicCategories"
 import { useCookies } from "react-cookie"
 
 function App() {
   const login = (localStorage.getItem("login") === 'true');
-  const apiEndpoint = "https://random-english.herokuapp.com/api";
+  const apiEndpoint = "http://128.199.168.137:3637/api";
   const [cookies, setCookie, removeCookie] = useCookies(['authentication']);
 
   const location = useLocation();
@@ -49,10 +50,13 @@ function App() {
               <Redirect to='/profile' />
               : <Redirect to="/login" />
           )} />
+           
         </Switch>
         <Route path='/learn/category/:id' render={(props) => <LearnCard></LearnCard>}></Route>
-        <Route path='/categories/' render={(props) => <MyCategories></MyCategories>}></Route>
+        <Route path='/my-categories/' render={(props) => <MyCategories cookie={authCookie} apiEndpoint={apiEndpoint} />}></Route>
+        <Route path='/public-categories/' render={(props) => <PublicCategories cookie={authCookie} apiEndpoint={apiEndpoint} />}></Route>
         <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
+ 
       </div>
       {checkOuter(location.pathname) && <FooterComponent></FooterComponent>}
     </div>
