@@ -11,7 +11,6 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 const RandomCard = (props) => {
 
-  let question='';
   const [doneAnswer, setDoneAnswer] = useState(false);
   const [haveData, setHaveData] = useState(false);
   const [data, setData] = useState({});
@@ -25,7 +24,6 @@ const RandomCard = (props) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibmFtZSI6IlRyYWlDaHVvaUNvbmciLCJpYXQiOjE1OTExOTA0NTgsImV4cCI6MTU5MTI3Njg1OH0.HIR6VsiDfsofHBgIpzlFC-lRPc10gAji63ySNgIk_J8',
       },
     })
       .then(res => res.json())
@@ -67,20 +65,6 @@ const RandomCard = (props) => {
     setDownload(!download);
   }
 
-  const handleResponse = (resp) => {
-    console.log(resp.json())
-    // const respJSON = JSON.parse(resp);
-    // console.log(respJSON)
-    // const status = respJSON.status;
-    // if (status == 1) {
-    //   const data = respJSON.data;
-    //   return data;
-    // }
-    // return null;
-  }
-
-  
-
   const handleDoneAnswer = () => {
     setDoneAnswer(true);
   }
@@ -105,7 +89,7 @@ const RandomCard = (props) => {
   }
 
   return (
-    <div className="rowBox container-fluid" style={{ "maxWidth": "100%", 'width': '100%', 'display': 'flex', 'alignItems': 'center', }}  >
+    <div className="rowBox container-fluid" style={{ "maxWidth": "100%", 'width': '100%', 'display': 'flex', 'alignItems': 'center' }}  >
       <ReactCSSTransitionGroup className="container"
         transitionName='question-appear'
         transitionAppear={true}
@@ -148,7 +132,7 @@ const RandomCard = (props) => {
         </ReactCSSTransitionGroup>}
       </ReactCSSTransitionGroup>
     </div>
-  ) 
+  )
 }
 
 export default RandomCard;

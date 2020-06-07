@@ -1,0 +1,65 @@
+.panel{
+    box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02), 0 3px 6px rgba(117, 108, 254, 0.12);
+    background-color: white;
+    border-radius: 10px;
+    min-height: 200px;
+}
+
+.categories-panel{
+    margin: 20px;
+}
+
+.categories .panel-body{
+    padding: 10px;
+}
+
+.categories .panel-header{
+    padding:10px
+}
+
+
+.pagination{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 20px;
+}
+
+.pagination >li >a{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #337ab7;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.pagination .active > a{  
+    background-color: #ddd;
+    border: 1px solid #ddd;
+}
+
+.btnPublish{
+    padding: 0 10px;
+    font-size: 12pt;
+}
+.progress{
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 5px;
+    border: 1px solid #4299e1;
+}
+
+.progress-bar{
+    background-color: #4299e1;
+    height: 100%;
+    color: white;
+    font-size: 10pt;
+    border-radius: 5px;
+    border: 1px solid #4299e1;
+}
+.categories-panel:hover{
+    cursor: pointer;
+}

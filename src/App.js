@@ -8,9 +8,11 @@ import RegisterForm from "./components/Register-Component";
 import CardUploadForm from "./components/CardUpload-Component";
 import HeaderComponent from "./components/Header-Component";
 import Profile from "./components/Profile-Component";
+import LearnCard from "./components/LearnCard-Component"
 import RandomCard from "./components/RandomCard-Component"
 import FooterComponent from "./components/Footer-Component";
 import ResetPasswordForm from "./components/ResetPassword-Component";
+import MyCategories from "./components/MyCategories-Component"
 import { useCookies } from "react-cookie"
 
 function App() {
@@ -28,28 +30,29 @@ function App() {
     console.log(pathName);
     if (['/login', '/register', '/reset-password'].includes(pathName)) {
       return false;
-    } 
+    }
     return true;
   }
 
   return (
-    <div className="container max-w-full min-h-screen flex flex-col justify-between" style={{background: 'linear-gradient(#10405f 10%, #005d96 100%)'}}>
-      {checkOuter(location.pathname) && <HeaderComponent login={login}justify removeCookie={removeCookie} setNewData={setNewData} user={data}></HeaderComponent>}
+    <div className="container max-w-full min-h-screen flex flex-col justify-between" style={{ background: 'linear-gradient(#10405f 10%, #005d96 100%)' }}>
+      {checkOuter(location.pathname) && <HeaderComponent login={login} justify removeCookie={removeCookie} setNewData={setNewData} user={data}></HeaderComponent>}
       <div id="mainContent" className="container mx-auto min-h-full">
-      <Switch>
-        <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
-        <PrivateRoute path='/profile' component={Profile} login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
-        <PrivateRoute path='/card/upload' component={CardUploadForm} login={login}></PrivateRoute>
-        <Route exact path='/register'  render={(props) => <RegisterForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></RegisterForm>} />
-        <Route exact path='/reset-password'render={(props) => <ResetPasswordForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></ResetPasswordForm>} />
-        
-        <Route exact path='/' render={props => (
-            login?
-                <Redirect to='/profile'/>
-            : <Redirect to="/login" />
-        )} />
-      </Switch>
-          <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
+        <Switch>
+          <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
+          <PrivateRoute path='/profile' component={Profile} login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
+          <PrivateRoute path='/card/upload' component={CardUploadForm} login={login}></PrivateRoute>
+          <Route exact path='/register' render={(props) => <RegisterForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></RegisterForm>} />
+          <Route exact path='/reset-password' render={(props) => <ResetPasswordForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></ResetPasswordForm>} />
+          <Route exact path='/' render={props => (
+            login ?
+              <Redirect to='/profile' />
+              : <Redirect to="/login" />
+          )} />
+        </Switch>
+        <Route path='/learn/category/:id' render={(props) => <LearnCard></LearnCard>}></Route>
+        <Route path='/categories/' render={(props) => <MyCategories></MyCategories>}></Route>
+        <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
       </div>
       {checkOuter(location.pathname) && <FooterComponent></FooterComponent>}
     </div>
