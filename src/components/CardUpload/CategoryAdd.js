@@ -6,64 +6,16 @@ import handleResponse from "../../helper/ResponseHandler";
 import ExampleField from "./ExampleField"
 import InputField from "./InputField"
 
-const CardUploadForm = (props) => {
+const CategoryAddForm = (props) => {
   const [examples, setExamples] = useState([]);
 
   const [imgUpload, SetImgUpload] = useState(null);
-
-  const [collections, setCollections] = useState([]);
-
-  const [collection, setCollection] = useState("new");
-
-  const [rawCollectionVal, setCollectionVal] = useState([]);
-
-  useEffect(() => {
-    // fetch(props.apiEndpoint+'/user/collections', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer ' + props.cookie,
-    //   },
-    //   })
-    //   .then(res => handleResponse(res))
-    //   .then(resdata => {
-    //     const collectionOptions = resdata.map(value =>
-    //       <option key={value} value={value}>{value}</option>);
-    //     setCollections(collections.concat(collectionOptions));
-    //   })
-    //fetch categories here
-    const resdata = ["animal", "tech", "meme"];
-      resdata.unshift('new');
-      setCollectionVal(rawCollectionVal.concat(resdata));
-
-      const collectionOptions = resdata.map(value =>
-              <option key={value} value={value}>{value}</option>);
-      if(collectionOptions.length > 0){
-            setCollections(collections.concat(collectionOptions));
-            setCollection(resdata[1]);
-      }
-      else{
-        setCollections(collections.concat(<option selected key={'new'} value={'new'}>{'new'}</option>));
-        setCollection('new');
-      }
-    },[]);
 
   const schema = yup.object().shape({
     Eng: yup.string().required(),
     Vie: yup.string().required(),
     Concept: yup.string().required(),
-    Collection: yup.string().required(),
-    NewCollection: yup.string().notOneOf(collections).max(15).when('Collection',{
-      is: 'new',
-      then: yup.string().required()
-    })
-    });
-
-  const onCollectionChanged = (e) => {
-    const newCol = e.target.value;
-    setCollection(newCol);
-  };
+  });
 
   const addExampleField = () => {
     const exampleName = examples.length;
@@ -78,9 +30,10 @@ const CardUploadForm = (props) => {
   };
 
   const onSubmit = (data) => {
+    console.log(data);
     if (data.hasOwnProperty("Image") && data["Image"].length === 0) {
       delete data["Image"];
-    } else {
+    } else if (data["Image"]){
       data["Image"] = data["Image"][0];
       data["Image"]["content"] = imgUpload;
     }
@@ -96,6 +49,10 @@ const CardUploadForm = (props) => {
       delete data[i + "English"];
       delete data[i + "Vietnamese"];
     }
+
+    if(props.curCollection){
+      data['categories'] = props.curCollection;
+    } else data['categories'] = undefined;
 
     //call POST API here
     console.log(data);
@@ -129,36 +86,7 @@ const CardUploadForm = (props) => {
           className="flex w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="w-2/3 bg-gray-500 rounded-lg shadow-lg">
-            <h2 className="p-3 bg-white rounded-t-lg text-lg">Thông tin thẻ</h2>
-            <div className="p-3">
-              <h2 className="mb-2">Phân loại từ</h2>
-              <div className="relative">
-                {/* <label className="mr-2">Select a collection</label> */}
-                <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  onChange={onCollectionChanged}
-                  value={collection}
-                  name="Collection"
-                  id="collection"
-                  ref={register}
-                >
-                  {collections && collections}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                </div>
-              </div>
-              {collection && collection === "new" && (
-                <div className="ml-5 inline w-1/2">
-                  <label className="mr-2">Phân loại mới</label>
-                  <input
-                    type="text"
-                    name="NewCollection"
-                    ref={register}
-                  ></input>
-                </div>
-              )}
+          <div className="w-2/3 rounded-lg shadow-lg p-3">
               <InputField
                 name="Eng"
                 placeholder="The word in English"
@@ -202,19 +130,18 @@ const CardUploadForm = (props) => {
                 </button>
               </div>
             </div>
-          </div>
-          <div className="w-1/3 bg-gray-400 rounded-lg shadow-lg">
-            <h2 className="p-3 bg-white rounded-t-lg text-lg">Upload ảnh</h2>
+          <div className="w-1/3">
+            <h2 className="p-3 block text-gray-700 font-bold mb-2">Upload ảnh</h2>
             <div className="p-3">
-              <input
-                accept="image/*"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                type="file"
-                ref={register}
-                id="Image"
-                name="Image"
-                onChange={handleImageUpload}
-              ></input>
+            <div className="flex w-full items-center justify-center bg-grey-lighter">
+            <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue-700 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue-800 hover:text-white">
+                <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                </svg>
+                <span className="mt-2 text-base leading-normal">Select a file</span>
+                <input type='file' className="hidden" name="Image" ref={register} onChange={handleImageUpload}/>
+            </label>
+            </div>
               <p className="text-left text-red-700 text-sm">
                 {errors["Image"] && errors["Image"].message}
               </p>
@@ -226,4 +153,4 @@ const CardUploadForm = (props) => {
     );
 };
 
-export default CardUploadForm;
+export default CategoryAddForm;

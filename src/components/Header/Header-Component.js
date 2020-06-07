@@ -40,7 +40,7 @@ const HeaderComponent = (props) => {
         </div>
         <div className="w-75 block flex-grow lg:flex lg:items-center">
             <CustomNavLink history={history} text="Random" link="/card/random"></CustomNavLink>
-            <CustomNavLink history={history} text="Learn" link="/card/learn"></CustomNavLink>
+            <CustomNavLink history={history} text="Edit" link="/category/edit"></CustomNavLink>
             {/* only logged in user can see this */}
             {props.login && <CustomNavLink history={history} text="Upload" link="/card/upload"></CustomNavLink>}
             </div>

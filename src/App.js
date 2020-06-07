@@ -12,10 +12,11 @@ import RandomCard from "./components/RandomCard-Component"
 import FooterComponent from "./components/Footer-Component";
 import ResetPasswordForm from "./components/ResetPassword-Component";
 import { useCookies } from "react-cookie"
+import CategoryEdit from './components/CardUpload/CategoryEdit-Component';
 
 function App() {
   const login = (localStorage.getItem("login") === 'true');
-  const apiEndpoint = "https://random-english.herokuapp.com/api";
+  const apiEndpoint = "http://128.199.168.137:3637/api";
   const [cookies, setCookie, removeCookie] = useCookies(['authentication']);
 
   const location = useLocation();
@@ -39,7 +40,7 @@ function App() {
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
         <PrivateRoute path='/profile' component={Profile} login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
-        <PrivateRoute path='/card/upload' component={CardUploadForm} login={login}></PrivateRoute>
+        <PrivateRoute path='/category/edit' component={CategoryEdit} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
         <Route exact path='/register'  render={(props) => <RegisterForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></RegisterForm>} />
         <Route exact path='/reset-password'render={(props) => <ResetPasswordForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></ResetPasswordForm>} />
         

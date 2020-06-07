@@ -5,7 +5,7 @@ const InputField = (props) => {
     const propDisplay = props.display;
     const errors = props.errors ? props.errors[propName] : null;
     return (
-      <div className="mb-4">
+      <div className="mb-6">
         <label
           className="block text-gray-700 font-bold mb-2"
           htmlFor={props.name}
