@@ -1,72 +1,63 @@
 import React,{useState} from 'react';
 import {useForm} from 'react-hook-form';
-import * as yup from 'yup';
 import { Redirect ,useHistory} from 'react-router-dom';
 
-const LoginForm = (props)=>{
+const VerifyUserForm = (props)=>{
   const [loginErr,setLoginErr] = useState(null);
   const history = useHistory();
+  const [Email,setEmail] = useState(props.location.state.email);
+  const [verified, setVerified] = useState(false);
+  const [resendStatus, setResendStatus] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
+  const [verificationStatus, setVerifcationStatus] = useState("");
 
-  const schema = yup.object().shape({
-    Email: yup
-      .string()
-      .required()
-      .email(),
-    password: yup
-      .string()
-      .required()
-      .max(45),
-  });
-  
   const onSubmit = data => {
     setLoginErr(null);
     // truyen xuong back-end + render /profile
-    fetch(props.apiEndpoint+'/users/login', {
+    fetch(props.apiEndpoint+'/users/verify-mail', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      email: data.Email,
-      password: data.password
+      token: data.verificationCode
       })
     })
     .then(res => res.json())
     .then(res => {
-      if(res.data && res.data.token != null){
-        let expireDate = new Date();
-        expireDate.setTime(expireDate.getTime() + (24*3600*1000)); // 15 min expiration
-        localStorage.setItem("login","true");
-        props.setCookie('authentication',res.data.token,{
-          expires: expireDate,
-          path: '/',
-          httpOnly: false,
-        });
-      }
-      if(res.status === 0){
-        if(res.message !== "User has not verified yet")
-        setLoginErr(res.message);
-        else{
-          // redirects to verification page
-          history.push({pathname: '/verify-user',state: {email:data.Email}});
-        }
-      }
+      setVerified(res.status === 1);
+      setVerifcationStatus(res.message);
     })
+  }
+
+  const resendEmail = () => {
+    setVerifcationStatus("");
+    console.log("wat");
+    fetch(props.apiEndpoint+'/users/resend-verify-user-mail', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: Email
+        })
+      })
+      .then(res => res.json())
+      .then(res => {
+        setResendStatus(res.status === 1);
+        setResendMessage(res.message);
+      })
   }
 
   const redirect = (to) => {
     return history.push(to);
   }
   
-  const { register, handleSubmit, errors } = useForm({
-    validationSchema: schema
-  });
-
-  if (props.login) {
-      return <Redirect to="/profile"></Redirect>;
-  } else
-      return (
+  const { register, handleSubmit, errors } = useForm();
+    
+    return (
         <div className="container w-100 h-screen flex flex-col justify-center align-items">
             <div className="flex justify-center items-center flex-col">
               <div className="flex my-3 items-center">
@@ -96,30 +87,29 @@ const LoginForm = (props)=>{
                           name="Email"
                           type="text"
                           placeholder="Email"
+                          value={Email}
+                          onChange={e=>setEmail(e.target.value)}
                           ref={register}
                       />
                       <p className="text-left text-red-700 text-sm">
                       {errors?.Email?.message}
                       </p>
                   </div>
-                  <div className="mb-6">
+                  <div className="mb-4">
                       <label
                           className="block text-gray-700 font-bold mb-2"
-                          htmlFor="password"
+                          htmlFor="verificationCode"
                       >
-                          Mật khẩu 
+                          Mã xác thực
                       </label>
                       <input
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          id="password"
-                          name="password"
-                          type="password"
-                          placeholder="******************"
+                          id="verificationCode"
+                          name="verificationCode"
+                          type="text"
+                          placeholder=""
                           ref={register}
                       />
-                      <p className="text-left text-red-700 text-sm">
-                          {errors?.password?.message}
-                      </p>
                   </div>
                   <div
                       className="flex items-center justify-between text-red-700 text-sm padding mb-4"
@@ -128,24 +118,35 @@ const LoginForm = (props)=>{
                         {loginErr && loginErr}
                   </div>
                   <div
-                      className="flex items-center justify-between"
+                      className="flex items-center justify-between space-x-2"
                       style={{ justifyContent: "center" }}
                   >
+                    <button
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          type="button"
+                          onClick={()=>resendEmail()}
+                      >
+                          Gửi lại
+                      </button>
                       <button
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                           type="submit"
                       >
-                          Đăng nhập
+                          Xác thực
                       </button>
                   </div>
-                  <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-sm text-gray-600 ">Bạn chưa có tài khoản? </p>
-                          <button onClick={()=>{redirect('/register')}} className="text-sm text-blue-700 hover:text-white ml-2">Tạo ngay</button>
-                    </div>
-                  <div className="mt-3 justify-center inline-block flex w-100">
-                    <p className="text-sm text-gray-600 ">Quên mật khẩu? </p>
-                    <button onClick={()=>{redirect('/reset-password')}} className="text-sm text-blue-700 hover:text-white ml-2">Đặt lại mật khẩu</button>
-              </div>
+                  {resendMessage && <div
+                      className={"mt-3 justify-center inline-block flex w-100 text-xs " + (resendStatus?'text-green-700':'text-red-700')}
+                      style={{ justifyContent: "center" }} 
+                      >
+                        {resendMessage}
+                      </div>}
+                      {verificationStatus && <div
+                      className={"mt-3 justify-center inline-block flex w-100 text-xs " + (verified?'text-green-700':'text-red-700')}
+                      style={{ justifyContent: "center" }} 
+                      >
+                        {verificationStatus}
+                      </div>}
               </form>
               <p className="text-center text-gray-500 text-sm">
                   &copy;2020 Acme Corp. All rights reserved.
@@ -155,4 +156,4 @@ const LoginForm = (props)=>{
       );
 };
 
-export default LoginForm;
+export default VerifyUserForm;

@@ -52,6 +52,7 @@ const RegisterForm = (props) => {
         })
             .then((res) => res.json())
             .then((res) => {
+                //TODO: redirect to verification
                 console.log(res);
                 if (res.data && res.data.token != null) {
                     let expireDate = new Date();
