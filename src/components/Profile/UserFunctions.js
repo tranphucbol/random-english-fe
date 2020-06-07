@@ -16,8 +16,8 @@ const UserFunctions = (props) => {
             <div className="flex items-center justify-center">
                 {/* User menu */}
                 <ul className="flex-row text-center">
-                <Link to={`${curUrl}/info`} className="mx-3 my-1 flex items-center justify-center h-12 w-64 text-center rounded-lg text-md bg-gray-600">Thong tin ca nhan</Link>
-                <Link to={`${curUrl}/collections`} className="mx-3 my-1 flex items-center justify-center h-12 w-64 text-center rounded-lg text-md bg-gray-600">Bo suu tap the</Link>
+                <Link to={`${curUrl}/info`} className="flex items-center justify-center h-12 w-64 text-center text-md">Thong tin ca nhan</Link>
+                <Link to={`${curUrl}/collections`} className="flex items-center justify-center h-12 w-64 text-center rounded-lg text-md">Bo suu tap the</Link>
                 </ul>
             </div>
           </div>

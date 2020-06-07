@@ -80,7 +80,7 @@ const RegisterForm = (props) => {
         return <Redirect to="/profile"></Redirect>;
     } else
         return (
-            <div className="h-screen flex justify-center items-center flex-col">
+            <div className="h-screen w-full flex justify-center items-center flex-col">
                 <div className="flex my-3 items-center">
                     <img
                         src={`${process.env.PUBLIC_URL}/dice.png`}
@@ -93,7 +93,7 @@ const RegisterForm = (props) => {
                 </div>
 
                 <form
-                    className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                    className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3"
                     onSubmit={handleSubmit(onSubmit)}
                 >
                     <div className="mb-4">
@@ -199,7 +199,7 @@ const RegisterForm = (props) => {
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
-                            Register
+                            Đăng ký
                         </button>
                     </div>
                     <div className="mt-3 justify-center inline-block flex w-100">
