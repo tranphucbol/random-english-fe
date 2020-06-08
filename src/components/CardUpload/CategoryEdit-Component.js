@@ -3,6 +3,7 @@ import handleResponse from '../../helper/ResponseHandler';
 import { Redirect, useRouteMatch, Switch, Route } from 'react-router-dom';
 import CategoryAddForm from './CategoryAdd';
 import CategoryListItem from './CategoryListItem';
+import CategoryInfo from './Category-Info';
 
 const CategoryEdit = (props)=>{
 
@@ -18,10 +19,10 @@ const CategoryEdit = (props)=>{
 
   const [curCollection, setCurCollection] = useState(null);
 
-  const [curMode, setCurMode] = useState("edit");
 
   const handleCategoryChange = (target)=>{
-    setCurCollection(target['innerText']);
+    console.log(target);
+    setCurCollection(target['id']);
   }
 // Fetch my categories
 
@@ -37,10 +38,9 @@ const CategoryEdit = (props)=>{
       .then(res => handleResponse(res))
       .then(resdata => {
           if(resdata){
-        console.log(resdata);
         setMyCollections(resdata);
         let cols = resdata.map(col=>
-            <CategoryListItem id={col['id']} key={col['id']} name={props.name} active={curCollection===col['id']} onClick={(e) => handleCategoryChange(e.target)}></CategoryListItem>);
+            <CategoryListItem id={col['id']} key={col['id']} name={col['name']} active={curCollection===col['id']} onClick={(e) => handleCategoryChange(e.target)}></CategoryListItem>);
         setMyCollectionList(myCollectionList.concat(cols));
         }            
     })
@@ -82,9 +82,9 @@ const CategoryEdit = (props)=>{
             </div>
         </div>
             <div className="flex-col flex-1 flex-grow-0 justify-center overflow-y-auto items-start bg-gray-500" style={{height:"90%"}}>
-                {/* User menu */}
-                <CategoryAddForm curCollection={curCollection} login={props.login} setFormData={setFormData}></CategoryAddForm>
-            </div>
+                {/* Category */}
+                {myCollections && curCollection && <CategoryInfo apiEndpoint={props.apiEndpoint} cookie={props.cookie} category={curCollection}></CategoryInfo>}
+                </div>
     </div>
     </div>
   )

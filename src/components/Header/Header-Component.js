@@ -9,20 +9,24 @@ const HeaderComponent = (props) => {
     const [showDropdown,setShowDropdown] = useState(false);
     const history = useHistory();
 
-    if(!props.user && props.cookie){
-    fetch(props.apiEndpoint+'/users/profile', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + props.cookie,
-            },
-            })
-            .then(res => handleResponse(res))
-            .then(resdata => {
-              props.setNewData(resdata);
-            },[]);
-    }
+    // if(!curUser && props.cookie){
+    // fetch(props.apiEndpoint+'/users/profile', {
+    //         method: 'POST',
+    //         headers: {
+    //           'Accept': 'application/json',
+    //           'Content-Type': 'application/json',
+    //           'Authorization': 'Bearer ' + props.cookie,
+    //         },
+    //         })
+    //         // .then(res => JSON.parse(res))
+    //         .then(resdata => {
+    //         if(resdata.status === 1)
+    //           setCurUser(resdata);
+    //         else{
+    //             history.push('/login');
+    //         }
+    //         },[]);
+    // }
 
     const handleSearchRequest = (e) => {
         if(e.keyCode !== 13)

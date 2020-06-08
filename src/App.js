@@ -22,7 +22,7 @@ function App() {
   const location = useLocation();
   const setAuthCookie = (cookieName, cookieValue, options) => setCookie(cookieName, cookieValue, options);
   const authCookie = cookies['authentication'];
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(localStorage.getItem("user") && JSON.parse(localStorage.getItem("user")));
   const setNewData = (data) => setData(data);
 
   const checkOuter = (pathName) => {

@@ -20,6 +20,7 @@ const Profile = (props)=>{
       })
       .then(res => handleResponse(res))
       .then(resdata => {
+        localStorage.setItem("user",JSON.stringify(resdata));
         props.setNewData(resdata);
       })
   }, []);
