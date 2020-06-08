@@ -60,7 +60,7 @@ function App() {
               <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
               <PrivateRoute exact path='/verify-user' render={(props) => <VerifyUserForm apiEndpoint={apiEndpoint} {...props}></VerifyUserForm>} />
               <PrivateRoute path='/category/edit' component={CategoryEdit} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
-              <PrivateRoute exact path='/reset-password' render={(props) => <ResetPasswordForm apiEndpoint={apiEndpoint} {...props}></ResetPasswordForm>} />
+              <Route exact path='/reset-password' render={(props) => <ResetPasswordForm apiEndpoint={apiEndpoint} {...props}></ResetPasswordForm>} />
               <Route path='/' render={props => (
                   <Redirect to='/card/random' />)} />
             </Switch>
