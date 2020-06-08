@@ -23,6 +23,15 @@
     margin: 15px 0;
 }
 
+.ReactModal__Content.ReactModal__Content--after-open{
+    width: 30%;
+    height: 40%;
+    position: relative;
+    margin: 50px auto
+}
+.ReactModal__Overlay.ReactModal__Overlay--after-open{
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
 /* .pagination > li:last-child > a {
     border-radius:0 .25rem .25rem 0;
 }

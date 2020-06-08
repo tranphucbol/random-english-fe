@@ -6,6 +6,7 @@ import './css/tailwind.css'
 import LoginForm from "./components/Login-Component";
 import RegisterForm from "./components/Register-Component";
 import LearnCard from "./components/LearnCard-Component"
+import TestWord from "./components/Test/Test"
 import HeaderComponent from "./components/Header/Header-Component";
 import Profile from "./components/Profile/Profile-Component";
 import RandomCard from "./components/RandomCard-Component"
@@ -62,6 +63,7 @@ function App() {
                   <Redirect to='/profile' />
                   : <Redirect to="/login" />
               )} />
+              <Route path='/test/category/:id' render={(props) => <TestWord></TestWord>}></Route>
             </Switch>
           </CSSTransition>
         </TransitionGroup >
