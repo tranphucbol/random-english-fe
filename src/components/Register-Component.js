@@ -52,6 +52,7 @@ const RegisterForm = (props) => {
         })
             .then((res) => res.json())
             .then((res) => {
+                //TODO: redirect to verification
                 console.log(res);
                 if (res.data && res.data.token != null) {
                     let expireDate = new Date();
@@ -80,7 +81,7 @@ const RegisterForm = (props) => {
         return <Redirect to="/profile"></Redirect>;
     } else
         return (
-            <div className="h-screen flex justify-center items-center flex-col">
+            <div className="h-screen w-full flex justify-center items-center flex-col">
                 <div className="flex my-3 items-center">
                     <img
                         src={`${process.env.PUBLIC_URL}/dice.png`}
@@ -93,12 +94,12 @@ const RegisterForm = (props) => {
                 </div>
 
                 <form
-                    className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                    className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3"
                     onSubmit={handleSubmit(onSubmit)}
                 >
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="Email"
                         >
                             Email
@@ -111,54 +112,54 @@ const RegisterForm = (props) => {
                             placeholder="example@gmail.com"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.Email?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="password"
                         >
-                            Password
+                            Mật khẩu
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
                             name="password"
                             id="password"
                             type="password"
-                            placeholder="******************"
+                            placeholder="Ít nhất 1 ký tự hoa, thường và số"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.password?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="passwordConfirmation"
                         >
-                            Re-Password
+                            Nhập lại mật khẩu
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
                             name="passwordConfirmation"
                             id="passwordConfirmation"
                             type="password"
-                            placeholder="******************"
+                            placeholder=""
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.passwordConfirmation?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="name"
                         >
-                            Full Name
+                            Họ và tên
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
@@ -168,16 +169,16 @@ const RegisterForm = (props) => {
                             placeholder="Kha Tran Minh"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.name?.message}
                         </p>
                     </div>
                     <div className="mb-4">
                         <label
-                            className="block text-gray-700 text-sm font-bold mb-2"
+                            className="block text-gray-700 font-bold mb-2"
                             htmlFor="phoneNumber"
                         >
-                            Phone Number (Raw numbers)
+                            Số điện thoại
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
@@ -187,7 +188,7 @@ const RegisterForm = (props) => {
                             placeholder="0482246257"
                             ref={register}
                         />
-                        <p className="text-left text-red-700 text-xs">
+                        <p className="text-left text-red-700 text-sm">
                             {errors?.phoneNumber?.message}
                         </p>
                     </div>
@@ -199,15 +200,15 @@ const RegisterForm = (props) => {
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
-                            Register
+                            Đăng ký
                         </button>
                     </div>
                     <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-xs text-gray-600 ">Already have an account? </p>
-                          <button onClick={redirectLogin} className="text-xs text-blue-700 hover:text-white">Login!</button>
+                          <p className="text-sm text-gray-600 ">Bạn đã có tài khoản? </p>
+                          <button onClick={redirectLogin} className="text-sm text-blue-700 hover:text-white">Đăng nhập!</button>
                     </div>
                 </form>
-                <p className="text-center text-gray-500 text-xs">
+                <p className="text-center text-gray-500 text-sm">
                     &copy;2020 Acme Corp. All rights reserved.
                 </p>
             </div>

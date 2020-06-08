@@ -19,6 +19,7 @@
     "react-animations": "^1.0.0",
     "react-bootstrap": "^1.0.1",
     "react-cookie": "^4.0.3",
+    "react-data-table-component": "^6.9.3",
     "react-dom": "^16.13.1",
     "react-fontawesome": "^1.7.1",
     "react-hook-form": "^5.7.2",
@@ -27,6 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-share": "^4.1.0",
+    "styled-components": "^5.1.1",
     "react-transition-group": "^4.4.1",
     "tailwindcss": "^1.4.6",
     "yup": "^0.28.5"

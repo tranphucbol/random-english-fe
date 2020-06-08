@@ -45,7 +45,12 @@ const LoginForm = (props)=>{
         });
       }
       if(res.status === 0){
+        if(res.message !== "User has not verified yet")
         setLoginErr(res.message);
+        else{
+          // redirects to verification page
+          history.push({pathname: '/verify-user',state: {email:data.Email}});
+        }
       }
     })
   }
@@ -80,7 +85,7 @@ const LoginForm = (props)=>{
               >
                   <div className="mb-4">
                       <label
-                          className="block text-gray-700 text-sm font-bold mb-2"
+                          className="block text-gray-700 font-bold mb-2"
                           htmlFor="Email"
                       >
                           Email
@@ -93,16 +98,16 @@ const LoginForm = (props)=>{
                           placeholder="Email"
                           ref={register}
                       />
-                      <p className="text-left text-red-700 text-xs">
+                      <p className="text-left text-red-700 text-sm">
                       {errors?.Email?.message}
                       </p>
                   </div>
                   <div className="mb-6">
                       <label
-                          className="block text-gray-700 text-sm font-bold mb-2"
+                          className="block text-gray-700 font-bold mb-2"
                           htmlFor="password"
                       >
-                          Password
+                          Mật khẩu 
                       </label>
                       <input
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -112,12 +117,12 @@ const LoginForm = (props)=>{
                           placeholder="******************"
                           ref={register}
                       />
-                      <p className="text-left text-red-700 text-xs">
+                      <p className="text-left text-red-700 text-sm">
                           {errors?.password?.message}
                       </p>
                   </div>
                   <div
-                      className="flex items-center justify-between text-red-700 text-xs padding mb-4"
+                      className="flex items-center justify-between text-red-700 text-sm padding mb-4"
                       style={{ justifyContent: "center" }} 
                       >
                         {loginErr && loginErr}
@@ -130,25 +135,23 @@ const LoginForm = (props)=>{
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                           type="submit"
                       >
-                          Login
+                          Đăng nhập
                       </button>
                   </div>
                   <div className="mt-3 justify-center inline-block flex w-100">
-                          <p className="text-xs text-gray-600 ">Don't have an account? </p>
-                          <button onClick={()=>{redirect('/register')}} className="text-xs text-blue-700 hover:text-white ml-2">Create one!</button>
+                          <p className="text-sm text-gray-600 ">Bạn chưa có tài khoản? </p>
+                          <button onClick={()=>{redirect('/register')}} className="text-sm text-blue-700 hover:text-white ml-2">Tạo ngay</button>
                     </div>
-
                   <div className="mt-3 justify-center inline-block flex w-100">
-                    <p className="text-xs text-gray-600 ">Forgot your password? </p>
-                    <button onClick={()=>{redirect('/reset-password')}} className="text-xs text-blue-700 hover:text-white ml-2">Reset it!</button>
+                    <p className="text-sm text-gray-600 ">Quên mật khẩu? </p>
+                    <button onClick={()=>{redirect('/reset-password')}} className="text-sm text-blue-700 hover:text-white ml-2">Đặt lại mật khẩu</button>
               </div>
               </form>
-              <p className="text-center text-gray-500 text-xs">
+              <p className="text-center text-gray-500 text-sm">
                   &copy;2020 Acme Corp. All rights reserved.
               </p>
           </div>
         </div>
-         
       );
 };
 
