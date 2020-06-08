@@ -1,6 +1,8 @@
 import React from "react";
 import PrivacyButton from "./PrivacyButton";
 import DeleteButton from "./DeleteButton";
+import {apiEndpoint} from '../../constant'
+import {Link} from "react-router-dom"
 
 const Category = ({
   id,
@@ -18,9 +20,9 @@ const Category = ({
         className="flex items-center justify-between rounded-t-lg bg-white px-3"
         style={{ height: "20%" }}
       >
-        <a href="/" className="text-gray-700 font-bold hover:text-blue-800">
+        <Link to={`/learn/category/${id}`} className="text-gray-700 font-bold hover:text-blue-800">
           {name}
-        </a>
+        </Link>
         <div className="flex items-center text-lg text-blue-500 hover:text-blue-800">
           <a className="mr-1" href="/">
             Xem Chi tiết
@@ -36,13 +38,13 @@ const Category = ({
         }}
       >
         <div className="w-full">
-          <a
-            href="/"
+          <Link
+             to={`/learn/category/${id}`}
             className="block text-white text-center"
             style={{ fontSize: "72pt", color: "rgba(255,255,255,0.5)" }}
           >
             {learnedWordCount}/{wordCount}
-          </a>
+          </Link>
         </div>
       </div>
       <footer
