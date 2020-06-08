@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import handleResponse from '../../helper/ResponseHandler';
 import { Redirect, useRouteMatch, Switch, Route } from 'react-router-dom';
 import CategoryAddForm from './CategoryAdd';
+import CategoryListItem from './CategoryListItem';
 
 const CategoryEdit = (props)=>{
 
@@ -39,8 +40,7 @@ const CategoryEdit = (props)=>{
         console.log(resdata);
         setMyCollections(resdata);
         let cols = resdata.map(col=>
-            <li key={col['id']} onClick={(e) => handleCategoryChange(e.target)} className="hover:border-blue-700 hover:bg-white hover:text-blue-700 flex text-gray-700 items-center justify-center h-12 w-64 text-center text-md">{col['name']}</li>
-        )
+            <CategoryListItem id={col['id']} key={col['id']} name={props.name} active={curCollection===col['id']} onClick={(e) => handleCategoryChange(e.target)}></CategoryListItem>);
         setMyCollectionList(myCollectionList.concat(cols));
         }            
     })

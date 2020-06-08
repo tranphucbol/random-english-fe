@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import * as yup from 'yup';
 
 const ResetPasswordForm = (props)=>{
   const [loginErr,setLoginErr] = useState(null);
@@ -7,35 +8,62 @@ const ResetPasswordForm = (props)=>{
   const [Email,setEmail] = useState(props.location.state?props.location.state.email:'');
   const [verificationToken, setVerificationToken] = useState(props.location.search? props.location.search.substring(7,):'');
   const [newPassword, setNewPassword] = useState('');
+  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
   const [verified, setVerified] = useState(false);
   const [resendStatus, setResendStatus] = useState(false);
   const [resendMessage, setResendMessage] = useState("");
   const [verificationStatus, setVerifcationStatus] = useState("");
+  const [error,setError] = useState(null);
+
+  const schema = yup.object().shape({
+    verificationToken: yup.string().required(),
+
+    newPassword: yup.string().required().matches(
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+        "Must contains 8 characters, 1 uppercase, 1 lowercase and 1 number"
+      ),
+
+    newPasswordConfirmation: yup
+        .string()
+        .required()
+        .oneOf([yup.ref("newPassword"), null], "Password must match"),});
 
   const onSubmit = data => {
-    setLoginErr(null);
-    // truyen xuong back-end + render /profile
-    fetch(props.apiEndpoint+'/users/reset-password', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      token: verificationToken,
-      newPassword: newPassword
+    setError(null);
+
+    schema.validate({
+      verificationToken: verificationToken,
+      newPassword: newPassword,
+      newPasswordConfirmation: newPasswordConfirmation
+    }).then((valid)=>{
+      if(!valid) return false;
+      setLoginErr(null);
+      // truyen xuong back-end + render /profile
+      fetch(props.apiEndpoint+'/users/reset-password', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: verificationToken,
+        newPassword: newPassword
+        })
       })
-    })
-    .then(res => res.json())
-    .then(res => {
-      setVerified(res.status === 1);
-      setVerifcationStatus(res.message);
-    })
+      .then(res => res.json())
+      .then(res => {
+        setVerified(res.status === 1);
+        setVerifcationStatus(res.message);
+      })
+    }).catch(err => {
+      console.log(err);
+      setError(err);
+      return false;
+    });
   }
 
   const resendEmail = () => {
     setVerifcationStatus("");
-    console.log("wat");
     fetch(props.apiEndpoint+'/users/resend-reset-password-mail', {
       method: 'POST',
       headers: {
@@ -100,20 +128,44 @@ const ResetPasswordForm = (props)=>{
                   <div className="mb-4">
                       <label
                           className="block text-gray-700 font-bold mb-2"
-                          htmlFor="verificationCode"
+                          htmlFor="newPassword"
                       >
                           Mật khẩu mới
                       </label>
                       <input
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          id="verificationCode"
-                          name="verificationCode"
+                          id="newPassword"
+                          name="newPassword"
                           type="password"
                           disabled={!verificationToken}
                           placeholder=">=8 ký tự hoa, thường và số"
                           value={newPassword}
                           onChange={e=>setNewPassword(e.target.value)}
                       />
+                      <p className="text-left text-red-700 text-sm">
+                            {error && error.path === 'newPassword' && error.message}
+                      </p>
+                  </div>
+                  <div className="mb-4">
+                      <label
+                          className="block text-gray-700 font-bold mb-2"
+                          htmlFor="newPasswordConfirmation"
+                      >
+                          Nhập lại mật khẩu mới
+                      </label>
+                      <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="newPasswordConfirmation"
+                          name="newPasswordConfirmation"
+                          type="password"
+                          disabled={!verificationToken}
+                          placeholder=""
+                          value={newPasswordConfirmation}
+                          onChange={e=>setNewPasswordConfirmation(e.target.value)}
+                      />
+                      <p className="text-left text-red-700 text-sm">
+                      {error && error.path === 'newPasswordConfirmation' && error.message}
+                        </p>
                   </div>
                   <div className="mb-4">
                       <label
@@ -132,6 +184,9 @@ const ResetPasswordForm = (props)=>{
                           onChange={e=>setVerificationToken(e.target.value)}
                           // ref={register}
                       />
+                      <p className="text-left text-red-700 text-sm">
+                            {error && error.path === 'verificationToken' && error.message}
+                      </p>
                   </div>
                   <div
                       className="flex items-center justify-between text-red-700 text-sm padding mb-4"
