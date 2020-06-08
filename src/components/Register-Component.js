@@ -55,15 +55,7 @@ const RegisterForm = (props) => {
                 //TODO: redirect to verification
                 console.log(res);
                 if (res.data && res.data.token != null) {
-                    let expireDate = new Date();
-                    expireDate.setTime(expireDate.getTime() + 15 * 60 * 1000); // 15 min expiration
-                    localStorage.setItem("login", "true");
-                    localStorage.setItem("user", JSON.stringify(res.data));
-                    props.setCookie("authentication", res.data.token, {
-                        expires: expireDate,
-                        path: "/",
-                        httpOnly: false,
-                    });
+                    history.push({pathname: '/verify-user',state: {email:data.Email}});
                 }
             });
     };
