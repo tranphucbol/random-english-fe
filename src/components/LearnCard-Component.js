@@ -1,66 +1,156 @@
-import React, { useState } from 'react';
-import '../css/tailwind.css'
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { Redirect } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import "../css/tailwind.css";
+import { useCookies } from "react-cookie";
 
 const LearnCard = (props) => {
+  const [words, setWords] = useState([]);
+  const [random, setRandom] = useState(0);
+  const [show, isShow] = useState(false);
+  const [cookies] = useCookies(["authentication"]);
+  const token = cookies["authentication"];
 
-  const [test, setTest] = useState(false);
-
-  const handleResponse = (resp) => {
-    console.log(resp)
-    const respJSON = JSON.parse(resp);
-    const status = respJSON.status;
-    if (status == 1) {
-      const data = respJSON.data;
-      return data;
-    }
-    return null;
-  }
-
-  const fetchData = () => {
-    fetch('https://random-english.herokuapp.com/api/words/random', {
-      method: 'POST',
+  useEffect(() => {
+    fetch("http://128.199.168.137:3637/api/categories/get-all-words", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + props.cookie,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
+      body: JSON.stringify({
+        categoryId: props.match.params.id,
+      }),
     })
-      .then(res => handleResponse(res))
-      .then(res => {
-        console.log(res)
-      })
-  }
+      .then((res) => res.json())
+      .then((resdata) => {
+        console.log(resdata);
+        if (resdata && resdata.data) {
+          setWords(resdata.data.words);
+          setRandom(
+            Math.floor(Math.random() * Math.floor(resdata.data.words.length))
+          );
+        }
+      });
+  }, [props.match.params.id]);
+
+  const handleLearned = (id) => {
+    fetch("http://128.199.168.137:3637/api/words/learn/" + id, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+    isShow(true);
+  };
+
+  const handleForget = (id) => {
+    fetch("http://128.199.168.137:3637/api/words/forget/" + id, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+    isShow(true);
+  };
+
+  const handleNext = () => {
+    setRandom(Math.floor(Math.random() * Math.floor(words.length)));
+    isShow(false);
+  };
 
   return (
-    <div className="rowBox container" style={{ "width": "70%", "margin": "50px auto" }}  >
-      <div className="w-full m-6 ">
-        <div className="panel" style={{ width: '100%', height: '100%' }}>
-          <div className="panel-body" style={{ width: '100%', height: '100%', padding: '20px' }}>
-            <div id="engKey" className="text-blue-700" >vui lên nào</div>
-            <div id="concept" style={{ marginTop: '10px' }}>
-              <b>Ngữ cảnh:</b>
-              <p id="conceptText">Câu nói tuyên bố, cảm thán, cao giọng rằng hãy bắt đầu cuộc vui, thường dùng trong những dịp vui như lễ lộc, tiệc tùng, v.v.</p>
-              <b>Ví dụ:</b>
-              <div>Người phù rể chính nâng ly nói với cả phòng đầy khách rằng "<b>Bắt đầu cuộc vui nào</b>!"</div>
-            </div>
-            <label className="custom-label flex">
-              <div className="bg-white shadow w-6 h-6 p-1 flex justify-center items-center mr-2">
-                <input type="checkbox" className="hidden" checked />
-                <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style={{ mixBlendMode: "normal" }}><path d="M0 172V0h172v172z" /><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1" /></g></svg>
+    words.length > 0 && (
+      <div
+        className="rowBox container-fluid flex justify-center items-center"
+        style={{ maxWidth: "100%", width: "100%" }}
+      >
+        <div className="flex w-full" style={{ maxHeight: "327px" }}>
+          <div className=" h-auto w-1/3 mx-5">
+            <img
+              src={words[random].image}
+              alt=""
+              style={{
+                borderRadius: "10px",
+                height: "inherit",
+                float: "right",
+                height: "100%",
+              }}
+            />
+          </div>
+          <div key="questionPanel" className="panel h-full w-2/3">
+            <div
+              className="panel-body"
+              style={{ width: "100%", padding: "20px" }}
+            >
+              <div className="row" style={{ fontSize: "12pt" }}>
+                <div className="col-sm-12 col-md-12 col-lg-12">
+                  <div id="vieKey">{words[random].vie}</div>
+                  <div id="concept">
+                    <b style={{ fontSize: "14pt" }}>Ngữ cảnh:</b>
+                    <p id="conceptText">{words[random].concept} </p>
+                  </div>
+                  <div id="engKey">
+                    <span id="0">Eng: {show && words[random].eng} </span>{" "}
+                  </div>
+                  <div id="examples">
+                    {
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: words[random].examples[0].vie,
+                        }}
+                      ></div>
+                    }
+                    <div style={{ height: "23px" }}>
+                      {show && (
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: words[random].examples[0].eng,
+                          }}
+                        ></div>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <span className="select-none"> This is a sample checkbox. All the text will toggle the state</span>
-            </label>
-            <button id='btnNext' onClick={fetchData} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">next</button>
+            </div>
+            <div
+              className="panel-footer flex justify-center"
+              style={{ paddingBottom: "20px" }}
+            >
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mx-3 rounded btnInLearn"
+                onClick={() => {
+                  handleLearned(words[random].id);
+                }}
+              >
+                Thuộc
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4  mx-3 rounded btnInLearn"
+                onClick={() => {
+                  handleForget(words[random].id);
+                }}
+              >
+                Quên
+              </button>
+              <button
+                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mx-3 rounded btnInLearn"
+                onClick={() => {
+                  handleNext();
+                }}
+              >
+                Tiếp
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  );
+};
 
 export default LearnCard;
-

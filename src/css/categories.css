@@ -1,0 +1,75 @@
+.panel{
+    box-shadow: 0 5px 15px rgba(57, 98, 254, 0.02), 0 3px 6px rgba(117, 108, 254, 0.12);
+    background-color: white;
+    border-radius: 10px;
+    min-height: 200px;
+}
+
+.categories-panel{
+    margin: 20px;
+}
+
+.categories .panel-body{
+    padding: 10px;
+}
+
+.categories .panel-header{
+    padding:10px
+}
+
+.pagination{
+    display: flex;
+    justify-content: flex-end;
+    margin: 15px 0;
+}
+
+.ReactModal__Content.ReactModal__Content--after-open{
+    width: 30%;
+    height: fit-content;
+    position: relative;
+    margin: 50px auto
+}
+.ReactModal__Overlay.ReactModal__Overlay--after-open{
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
+/* .pagination > li:last-child > a {
+    border-radius:0 .25rem .25rem 0;
+}
+
+.pagination >li > a{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #337ab7;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.pagination .active > a{  
+    background-color: #ddd;
+    border: 1px solid #ddd;
+} */
+
+.btnPublish{
+    padding: 0 10px;
+    font-size: 12pt;
+}
+.progress{
+    background-color: #edf2f9;
+    border-radius: 5px;
+    height: 10px;
+    /* border: 1px solid #4299e1; */
+}
+
+.progress-bar{
+    background: linear-gradient(-45deg,#1970e2,#4695ff); ;
+    border-radius: 5px;
+    height: 100%;
+    /* border: 1px solid #4299e1; */
+}
+.categories-panel:hover{
+    cursor: pointer;
+}

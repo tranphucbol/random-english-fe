@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import {Redirect, useHistory} from 'react-router-dom';  
+import React from 'react';
 
 const UserDropdown = (props) => {
     const user = props.user;
     const handleSignout = () => {
         console.log('alo');
         localStorage.removeItem('login');
+        localStorage.removeItem('user');
         props.removeCookie('authentication');
         props.setNewData(null);
     }
@@ -42,7 +42,7 @@ const UserDropdown = (props) => {
             <div className={" origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg"} hidden={!props.showDropdown}>
                 <div className="rounded-md bg-white shadow-xs">
                 <div className="py-1">
-                    <button onClick={()=>{props.history.push('/profile')}} className="block px-4 py-2 leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Profile</button>
+                    <button type="button" onMouseDown={()=>{props.history.push('/change-password')}} className="block px-4 py-2 leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">Change Password</button>
                     <form method="POST" action="#">
                     <button type="button" onMouseDown={handleSignout} className="block w-full text-left px-4 py-2 leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                         Sign out
