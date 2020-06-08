@@ -20,22 +20,22 @@ const MyCategories = () => {
     setModal(false);
   };
 
-  useEffect(() => {
-    fetch(`${apiEndpoint}/categories/get-private`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.data) {
-          setCategories(res.data);
-        }
-      });
-  }, [token]);
+  // useEffect(() => {
+  //   fetch(`${apiEndpoint}/categories/get-private`, {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //       Authorization: "Bearer " + token,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (res.data) {
+  //         setCategories(res.data);
+  //       }
+  //     });
+  // }, [token]);
 
   const handleClickCreateCategory = (e) => {
     e.preventDefault();

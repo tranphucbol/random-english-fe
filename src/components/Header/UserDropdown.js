@@ -5,6 +5,7 @@ const UserDropdown = (props) => {
     const handleSignout = () => {
         console.log('alo');
         localStorage.removeItem('login');
+        localStorage.removeItem('user');
         props.removeCookie('authentication');
         props.setNewData(null);
     }

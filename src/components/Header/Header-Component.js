@@ -61,8 +61,8 @@ const HeaderComponent = (props) => {
         <div className="w-75 block flex-grow lg:flex lg:items-center">
             <CustomNavLink history={history} text="Random" link="/card/random"></CustomNavLink>
             <CustomNavLink history={history} text="Edit" link="/category/edit"></CustomNavLink>
-            <CustomNavLink history={history} text="My Categories" link="/my-categories"></CustomNavLink>
-            <CustomNavLink history={history} text="Categories" link="/public-categories"></CustomNavLink>
+            <CustomNavLink history={history} text="My Categories" link="/my-categories/"></CustomNavLink>
+            <CustomNavLink history={history} text="Categories" link="/public-categories/"></CustomNavLink>
             {/* only logged in user can see this */}
             </div>
             {/*USER DROPDOWN AND SEARCH BAR */}
