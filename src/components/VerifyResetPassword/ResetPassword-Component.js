@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
-import {useForm} from 'react-hook-form';
-import { Redirect ,useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
-const VerifyUserForm = (props)=>{
+const ResetPasswordForm = (props)=>{
   const [loginErr,setLoginErr] = useState(null);
   const history = useHistory();
-  const [Email,setEmail] = useState(props.location.state.email);
+  const [Email,setEmail] = useState(props.location.state?props.location.state.email:'');
+  const [verificationToken, setVerificationToken] = useState(props.location.search? props.location.search.substring(7,):'');
+  const [newPassword, setNewPassword] = useState('');
   const [verified, setVerified] = useState(false);
   const [resendStatus, setResendStatus] = useState(false);
   const [resendMessage, setResendMessage] = useState("");
@@ -14,14 +15,15 @@ const VerifyUserForm = (props)=>{
   const onSubmit = data => {
     setLoginErr(null);
     // truyen xuong back-end + render /profile
-    fetch(props.apiEndpoint+'/users/verify-mail', {
+    fetch(props.apiEndpoint+'/users/reset-password', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      token: data.verificationCode
+      token: verificationToken,
+      newPassword: newPassword
       })
     })
     .then(res => res.json())
@@ -34,7 +36,7 @@ const VerifyUserForm = (props)=>{
   const resendEmail = () => {
     setVerifcationStatus("");
     console.log("wat");
-    fetch(props.apiEndpoint+'/users/resend-verify-user-mail', {
+    fetch(props.apiEndpoint+'/users/resend-reset-password-mail', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -55,7 +57,7 @@ const VerifyUserForm = (props)=>{
     return history.push(to);
   }
   
-  const { register, handleSubmit, errors } = useForm();
+  // const { register, handleSubmit, errors } = useForm();
     
     return (
         <div className="container w-100 h-screen flex flex-col justify-center align-items">
@@ -72,7 +74,6 @@ const VerifyUserForm = (props)=>{
               </div>
               <form
                   className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-                  onSubmit={handleSubmit(onSubmit)}
               >
                   <div className="mb-4">
                       <label
@@ -82,18 +83,37 @@ const VerifyUserForm = (props)=>{
                           Email
                       </label>
                       <input
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          className={"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "}
+                          disabled={verificationToken}
                           id="Email"
                           name="Email"
                           type="text"
-                          placeholder="Email"
+                          placeholder="Email nhận mã xác thực"
                           value={Email}
                           onChange={e=>setEmail(e.target.value)}
-                          ref={register}
+                          // ref={register}
                       />
-                      <p className="text-left text-red-700 text-sm">
+                      {/* <p className="text-left text-red-700 text-sm">
                       {errors?.Email?.message}
-                      </p>
+                      </p> */}
+                  </div>
+                  <div className="mb-4">
+                      <label
+                          className="block text-gray-700 font-bold mb-2"
+                          htmlFor="verificationCode"
+                      >
+                          Mật khẩu mới
+                      </label>
+                      <input
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="verificationCode"
+                          name="verificationCode"
+                          type="password"
+                          disabled={!verificationToken}
+                          placeholder=">=8 ký tự hoa, thường và số"
+                          value={newPassword}
+                          onChange={e=>setNewPassword(e.target.value)}
+                      />
                   </div>
                   <div className="mb-4">
                       <label
@@ -107,8 +127,10 @@ const VerifyUserForm = (props)=>{
                           id="verificationCode"
                           name="verificationCode"
                           type="text"
-                          placeholder=""
-                          ref={register}
+                          placeholder="Nhập mã để đổi mật khẩu"
+                          value={verificationToken}
+                          onChange={e=>setVerificationToken(e.target.value)}
+                          // ref={register}
                       />
                   </div>
                   <div
@@ -130,9 +152,10 @@ const VerifyUserForm = (props)=>{
                       </button>
                       <button
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                          type="submit"
+                          type="button"
+                          onClick={()=>onSubmit()}
                       >
-                          Xác thực
+                          Đặt lại mật khẩu
                       </button>
                   </div>
                   {resendMessage && <div
@@ -147,6 +170,10 @@ const VerifyUserForm = (props)=>{
                       >
                         {verificationStatus}
                       </div>}
+                      {verified && <div className="mt-3 justify-center inline-block flex w-100">
+                          <p className="text-sm text-gray-600 ">Quay về trang </p>
+                          <button onClick={() => redirect('/login')} className="text-sm text-blue-700 hover:text-white">đăng nhập</button>
+                    </div>}
               </form>
               <p className="text-center text-gray-500 text-sm">
                   &copy;2020 Acme Corp. All rights reserved.
@@ -156,4 +183,4 @@ const VerifyUserForm = (props)=>{
       );
 };
 
-export default VerifyUserForm;
+export default ResetPasswordForm;
