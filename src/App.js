@@ -56,7 +56,7 @@ function App() {
               <PrivateRoute path='/change-password' component={ChangePasswordForm} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
               <PrivateRoute path='/my-categories/' component={MyCategories} cookie={authCookie} login={login} apiEndpoint={apiEndpoint}></PrivateRoute>
               <PrivateRoute path='/public-categories/' component={PublicCategories} cookie={authCookie} login={login} apiEndpoint={apiEndpoint}></PrivateRoute>
-              <PrivateRoute path='/test/category/:id' render={(props) => <TestWord {...props}> </TestWord>}></PrivateRoute>
+              <PrivateRoute path='/test/category/:id' cookie={authCookie} login={login} apiEndpoint={apiEndpoint} component={TestWord}></PrivateRoute>
               <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
               <PrivateRoute exact path='/verify-user' render={(props) => <VerifyUserForm apiEndpoint={apiEndpoint} {...props}></VerifyUserForm>} />
               <PrivateRoute path='/category/edit' component={CategoryEdit} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
