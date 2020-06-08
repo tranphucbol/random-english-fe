@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div className="container max-w-full min-h-screen flex flex-col justify-between" style={{background: 'linear-gradient(#10405f 10%, #005d96 100%)'}}>
-      {checkOuter(location.pathname) && <HeaderComponent login={login}justify removeCookie={removeCookie} setNewData={setNewData} user={data}></HeaderComponent>}
+      {checkOuter(location.pathname) && <HeaderComponent login={login}justify removeCookie={removeCookie} setNewData={setNewData} cookie={authCookie} user={data}  apiEndpoint={apiEndpoint}></HeaderComponent>}
       <div id="mainContent" className="container mx-auto min-h-full">
       <Switch>
         <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />

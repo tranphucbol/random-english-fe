@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Redirect, useHistory} from 'react-router-dom';  
+import handleResponse from '../../helper/ResponseHandler';
 import UserDropdown from './UserDropdown';
 import CustomNavLink from './CustomNavLink';
 
@@ -7,6 +8,21 @@ const HeaderComponent = (props) => {
     const [searchInput,setSearchInput] = useState("");
     const [showDropdown,setShowDropdown] = useState(false);
     const history = useHistory();
+
+    if(!props.user && props.cookie){
+    fetch(props.apiEndpoint+'/users/profile', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + props.cookie,
+            },
+            })
+            .then(res => handleResponse(res))
+            .then(resdata => {
+              props.setNewData(resdata);
+            },[]);
+    }
 
     const handleSearchRequest = (e) => {
         if(e.keyCode !== 13)
