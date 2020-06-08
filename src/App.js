@@ -59,7 +59,7 @@ function App() {
               <Route exact path='/verify-user' render={(props) => <VerifyUserForm apiEndpoint={apiEndpoint} {...props}></VerifyUserForm>} />
         <PrivateRoute path='/category/edit' component={CategoryEdit} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
         <Route exact path='/reset-password' render={(props) => <ResetPasswordForm apiEndpoint={apiEndpoint} {...props}></ResetPasswordForm>} />
-              <Route exact path='/' render={props => (
+              <Route path='/' render={props => (
                   <Redirect to='/card/random' />)} />
             </Switch>
           </CSSTransition>
