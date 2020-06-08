@@ -25,6 +25,27 @@
   background: floralwhite;
 }
 
+#vieKey{
+  font-size: 2rem;
+  font-weight: bold;
+  color: #eb5e28;
+}
+
+#engKey{
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #38a169;
+}
+
+.btnInLearn{
+  width: 20%;
+}
+
+#examples{
+  color: cadetblue;
+}
+
 #question {
   font-size: 1.4rem;
 }
