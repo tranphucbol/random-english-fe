@@ -4,12 +4,13 @@ import Pagination from "react-js-pagination";
 import EmptyCategory from "./EmptyCategory";
 
 const Categories = ({ categories }) => {
+  console.log(categories);
   const [activePage, setActivePage] = useState(1);
   const handleChangePage = (page) => {
     setActivePage(page);
   };
   return (
-    <div>
+    <div className="relative">
       <div className="grid grid-cols-2 gap-4">
         {categories
           .slice((activePage - 1) * 4, (activePage - 1) * 4 + 4)
@@ -20,13 +21,14 @@ const Categories = ({ categories }) => {
           ))}
 
         {(activePage - 1) * 4 + 4 - categories.length > 0 &&
-          Array.apply(null, Array((activePage - 1) * 4 + 4 - categories.length)).map(
-            (category,index) => (
-              <div key={`empty-${index}`} className="col-span-1">
-                <EmptyCategory />
-              </div>
-            )
-          )}
+          Array.apply(
+            null,
+            Array((activePage - 1) * 4 + 4 - categories.length)
+          ).map((category, index) => (
+            <div key={`empty-${index}`} className="col-span-1">
+              <EmptyCategory />
+            </div>
+          ))}
 
         {/* <div className="col-span-1">
           <Category />
@@ -38,6 +40,7 @@ const Categories = ({ categories }) => {
           <Category />
         </div> */}
       </div>
+
       <Pagination
         activePage={activePage}
         itemsCountPerPage={4}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../..//css/categories.css";
 import "../../css/tailwind.css";
 import Categories from "./Categories";
+import EmptyCategories from "./EmptyCategories";
 
 const PublicCategories = ({cookie, apiEndpoint}) => {
   const [categories, setCategories] = useState([]);
@@ -23,8 +24,9 @@ const PublicCategories = ({cookie, apiEndpoint}) => {
   }, [cookie, apiEndpoint]);
 
   return (
-    <div className="container-fluid w-full categories">
-      <Categories categories={categories} />
+    <div className="container w-full categories">
+      {/* <Categories categories={categories} /> */}
+      {(categories === undefined || categories.length === 0) ? <EmptyCategories /> : <Categories categories={categories} />}
     </div>
   );
 };

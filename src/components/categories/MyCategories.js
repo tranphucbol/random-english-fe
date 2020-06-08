@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../..//css/categories.css";
 import "../../css/tailwind.css";
 import Categories from "./Categories";
+import EmptyCategories from "./EmptyCategories";
 
 const MyCategories = ({cookie, apiEndpoint}) => {
   const [categories, setCategories] = useState([]);
@@ -23,13 +24,13 @@ const MyCategories = ({cookie, apiEndpoint}) => {
   }, [cookie, apiEndpoint]);
 
   return (
-    <div className="container-fluid w-full categories">
+    <div className="container flex flex-col categories">
       <div className="flex justify-end">
         <button className="text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-3">
           <i className="fas fa-plus"></i> Tạo bộ sưu tập
         </button>
       </div>
-      <Categories categories={categories} />
+      {(categories === undefined || categories.length === 0) ? <EmptyCategories /> : <Categories categories={categories} />}
     </div>
   );
 };
