@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {Redirect, useHistory} from 'react-router-dom';  
-import handleResponse from '../../helper/ResponseHandler';
 import UserDropdown from './UserDropdown';
 import CustomNavLink from './CustomNavLink';
 

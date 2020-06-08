@@ -5,18 +5,18 @@ import Modal from "../Modal";
 import CategoryAddForm from "./CategoryAdd";
 
 const columns = [
-  {
-    cell: () => (
-      <div className="text-red-500 hover:text-red-700">
-        <i class="far fa-trash-alt"></i>
-      </div>
-    ),
-    width: "56px", // custom width for icon button
-    style: {
-      borderBottom: "1px solid #FFFFFF",
-      marginBottom: "-1px",
-    },
-  },
+  // {
+  //   cell: () => (
+  //     <div className="text-red-500 hover:text-red-700">
+  //       <i class="far fa-trash-alt"></i>
+  //     </div>
+  //   ),
+  //   width: "56px", // custom width for icon button
+  //   style: {
+  //     borderBottom: "1px solid #FFFFFF",
+  //     marginBottom: "-1px",
+  //   },
+  // },
   {
     name: "Eng",
     selector: "eng",

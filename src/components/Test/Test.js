@@ -2,26 +2,21 @@ import React, { useState, useEffect } from 'react';
 import '../../css/tailwind.css'
 import "../../css/randomCard.css"
 import QuestionBox from './QuestionBox'
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { Link } from "react-router-dom"
+import { useCookies } from "react-cookie";
 
 
 
 const Test = (props) => {
     const [words, setWords] = useState([]);
+    const [cookies] = useCookies(["authentication"]);
+    const token = cookies["authentication"];
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [value, setValue] = useState(0);
     const openModal = () => {
         setIsOpen(true);
     }
-    const handleAgain = () => {
-
-    }
-
-    const handleQuit = () => {
-    }
-
 
     const closeModal = () => {
         setIsOpen(false);
@@ -32,10 +27,10 @@ const Test = (props) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwibmFtZSI6IlRyYWlDaHVvaUNvbmciLCJpYXQiOjE1OTE2MDQ0MjAsImV4cCI6MTU5MTY5MDgyMH0.bbD1bpGMmEIHNmqMHZ-Ug_10CcUggRs-40HMKRfL4xE",
+                'Authorization': 'Bearer ' + token,
             },
             body: JSON.stringify({
-                "categoryId": 1
+                "categoryId": props.match.params.id
             })
         })
             .then(res => res.json())
@@ -51,10 +46,10 @@ const Test = (props) => {
                 }
             })
         return ;
-    }, [])
+    }, [props.match.params.id, token])
 
     const handleFinish = (curValue) => {
-        setValue(curValue.filter(item => item == true).length);
+        setValue(curValue.filter(item => item === true).length);
         openModal();
     }
     return (words.length > 0 &&

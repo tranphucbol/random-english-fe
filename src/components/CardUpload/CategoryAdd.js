@@ -7,6 +7,7 @@ import InputField from "./InputField";
 import { apiEndpoint } from "../../constant";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { store } from "react-notifications-component";
 
 const CategoryAddForm = (props) => {
   const [examples, setExamples] = useState([]);
@@ -72,8 +73,35 @@ const CategoryAddForm = (props) => {
           Authorization: "Bearer " + token,
         },
       });
+
+      store.addNotification({
+        title: "Thành công",
+        message: "Thêm từ thành công",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 3000,
+          onScreen: true,
+        },
+      });
     } catch (err) {
       console.log(err.response.data);
+      store.addNotification({
+        title: "Lỗi",
+        message: err.response.data.message,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 3000,
+          onScreen: true,
+        },
+      });
     }
     
   };

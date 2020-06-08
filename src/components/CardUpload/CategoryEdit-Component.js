@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import handleResponse from "../../helper/ResponseHandler";
-import { Redirect, useRouteMatch, Switch, Route } from "react-router-dom";
-// import CategoryAddForm from "./CategoryAdd";
+import { Redirect } from "react-router-dom";
 import CategoryListItem from "./CategoryListItem";
 import CategoryInfo from "./CategoryInfo";
 import EmptyCollection from "./EmptyCollection";
 
 const CategoryEdit = (props) => {
-  let { url, path } = useRouteMatch();
-
-  const [formData, setFormData] = useState(null);
-
   const [myCollectionList, setMyCollectionList] = useState([]);
 
   const [myCollections, setMyCollections] = useState([]);
@@ -33,10 +28,10 @@ const CategoryEdit = (props) => {
       },
     })
       .then((res) => handleResponse(res))
-      .then((resdata) => {
-        if (resdata) {
-          setMyCollections(resdata);
-          let cols = resdata.map((col) => (
+      .then((resData) => {
+        if (resData) {
+          setMyCollections(resData);
+          let cols = resData.map((col) => (
             <li className="border-b">
               <CategoryListItem
                 id={col["id"]}
@@ -82,13 +77,15 @@ const CategoryEdit = (props) => {
           <div className="min-w-full h-full bg-white border-l rounded-r-lg">
             <div className="flex flex-col overflow-y-auto items-start bg-white h-full rounded-r-lg">
               {/* Category */}
-              {(myCollections && curCollection) ? (
+              {myCollections && curCollection ? (
                 <CategoryInfo
                   apiEndpoint={props.apiEndpoint}
                   cookie={props.cookie}
                   category={curCollection}
                 ></CategoryInfo>
-              ) : <EmptyCollection />}
+              ) : (
+                <EmptyCollection />
+              )}
             </div>
           </div>
         </div>

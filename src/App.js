@@ -51,7 +51,8 @@ function App() {
               <PrivateRoute path='/profile' component={Profile} login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
               {/* <PrivateRoute path='/card/upload' component={CardUploadForm} login={login}></PrivateRoute> */}
               <Route exact path='/register' render={(props) => <RegisterForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></RegisterForm>} />
-              <Route path='/learn/category/:id' render={(props) => <LearnCard></LearnCard>}></Route>
+              <Route path='/learn/category/:id' render={(props) => <LearnCard {...props}></LearnCard>}></Route>
+              <Route path='/test/category/:id' render={(props) => <TestWord {...props}> </TestWord>}></Route>
               <Route path='/my-categories/' render={(props) => <MyCategories cookie={authCookie} apiEndpoint={apiEndpoint} />}></Route>
               <Route path='/public-categories/' render={(props) => <PublicCategories cookie={authCookie} apiEndpoint={apiEndpoint} />}></Route>
               <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
@@ -63,7 +64,7 @@ function App() {
                   <Redirect to='/profile' />
                   : <Redirect to="/login" />
               )} />
-              <Route path='/test/category/:id' render={(props) => <TestWord></TestWord>}></Route>
+x
             </Switch>
           </CSSTransition>
         </TransitionGroup >

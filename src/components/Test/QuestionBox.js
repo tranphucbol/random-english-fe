@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import '../../css/tailwind.css'
 import Radio from '@material-ui/core/Radio';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -69,7 +68,7 @@ const QuestionBox = ({ word, handleFinish }) => {
                     </div>
                 </div>
                 <div className='panel-footer flex justify-end'>
-                    {index != 9?<button
+                    {index !== 9?<button
                         onClick={() => { handleNext() }}
                         className="text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-3 mr-4"
                     >

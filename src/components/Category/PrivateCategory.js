@@ -1,9 +1,8 @@
 import React from "react";
 import PrivacyButton from "./PrivacyButton";
 import DeleteButton from "./DeleteButton";
-import { apiEndpoint } from "../../constant";
 import { Link } from "react-router-dom";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const Category = ({
   id,
@@ -29,9 +28,9 @@ const Category = ({
           {name}
         </Link>
         <div className="flex items-center text-lg text-blue-500 hover:text-blue-800">
-          <a className="mr-1" href="/">
+          <Link className="mr-1" to={"/category/edit"}>
             Xem Chi tiết
-          </a>
+          </Link>
           <i className="fas fa-chevron-right"></i>
         </div>
       </header>
@@ -62,8 +61,18 @@ const Category = ({
           allowChangePrivacy={allowChangePrivacy}
         />
 
-        <button onClick={() => history.push(`/learn/category/${id}`)} className="mr-2 text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded my-3">
-          Học
+        <button
+          onClick={() => history.push(`/learn/category/${id}`)}
+          className="mr-2 text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded my-3"
+        >
+          <i class="fas fa-book mr-1"></i>Học
+        </button>
+
+        <button
+          onClick={() => history.push(`/test/category/${id}`)}
+          className="mr-2 text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded my-3"
+        >
+          <i class="far fa-file-alt mr-1"></i>Kiểm tra
         </button>
 
         <DeleteButton className="mr-2" id={id} reload={reload} />
