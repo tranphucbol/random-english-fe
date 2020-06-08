@@ -19,6 +19,7 @@ import CategoryEdit from './components/CardUpload/CategoryEdit-Component';
 import VerifyUserForm from './components/VerifyResetPassword/VerifyUser-Component';
 import ReactNotification from 'react-notifications-component'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import ChangePasswordForm from './components/VerifyResetPassword/ChangePassword-Component'
 
 function App() {
   const login = (localStorage.getItem("login") === 'true');
@@ -48,23 +49,20 @@ function App() {
           <CSSTransition key={location.key} classNames="page" timeout={300} unmountOnExit>
             <Switch>
               <Route exact path='/login' render={(props) => <LoginForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></LoginForm>} />
-              <PrivateRoute path='/profile' component={Profile} login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute>
+              {/* <PrivateRoute exact path='/profile' component={Profile} login={login} cookie={authCookie} data={data} setNewData={setNewData} apiEndpoint={apiEndpoint}></PrivateRoute> */}
               {/* <PrivateRoute path='/card/upload' component={CardUploadForm} login={login}></PrivateRoute> */}
               <Route exact path='/register' render={(props) => <RegisterForm login={login} setCookie={setAuthCookie} apiEndpoint={apiEndpoint}></RegisterForm>} />
-              <Route path='/learn/category/:id' render={(props) => <LearnCard {...props}></LearnCard>}></Route>
-              <Route path='/test/category/:id' render={(props) => <TestWord {...props}> </TestWord>}></Route>
-              <Route path='/my-categories/' render={(props) => <MyCategories cookie={authCookie} apiEndpoint={apiEndpoint} />}></Route>
-              <Route path='/public-categories/' render={(props) => <PublicCategories cookie={authCookie} apiEndpoint={apiEndpoint} />}></Route>
+              <PrivateRoute path='/learn/category/:id' component={LearnCard} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
+              <PrivateRoute path='/change-password' component={ChangePasswordForm} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
+              <PrivateRoute path='/my-categories/' component={MyCategories} cookie={authCookie} login={login} apiEndpoint={apiEndpoint}></PrivateRoute>
+              <PrivateRoute path='/public-categories/' component={PublicCategories} cookie={authCookie} login={login} apiEndpoint={apiEndpoint}></PrivateRoute>
+              <PrivateRoute path='/test/category/:id' render={(props) => <TestWord {...props}> </TestWord>}></PrivateRoute>
               <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
-              <Route exact path='/verify-user' render={(props) => <VerifyUserForm apiEndpoint={apiEndpoint} {...props}></VerifyUserForm>} />
-        <PrivateRoute path='/category/edit' component={CategoryEdit} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
-        <Route exact path='/reset-password' render={(props) => <ResetPasswordForm apiEndpoint={apiEndpoint} {...props}></ResetPasswordForm>} />
-              <Route exact path='/' render={props => (
-                login ?
-                  <Redirect to='/profile' />
-                  : <Redirect to="/login" />
-              )} />
-x
+              <PrivateRoute exact path='/verify-user' render={(props) => <VerifyUserForm apiEndpoint={apiEndpoint} {...props}></VerifyUserForm>} />
+              <PrivateRoute path='/category/edit' component={CategoryEdit} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
+              <PrivateRoute exact path='/reset-password' render={(props) => <ResetPasswordForm apiEndpoint={apiEndpoint} {...props}></ResetPasswordForm>} />
+              <Route path='/' render={props => (
+                  <Redirect to='/card/random' />)} />
             </Switch>
           </CSSTransition>
         </TransitionGroup >

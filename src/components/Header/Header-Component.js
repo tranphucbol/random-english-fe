@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Redirect, useHistory} from 'react-router-dom';  
 import UserDropdown from './UserDropdown';
 import CustomNavLink from './CustomNavLink';
@@ -7,6 +7,14 @@ const HeaderComponent = (props) => {
     const [searchInput,setSearchInput] = useState("");
     const [showDropdown,setShowDropdown] = useState(false);
     const history = useHistory();
+
+    useEffect(() => {
+        if(localStorage.getItem('user')){
+        props.setNewData(JSON.parse(localStorage.getItem("user")));
+        } else{
+            localStorage.clear();
+        }
+    },[]);
 
     // if(!curUser && props.cookie){
     // fetch(props.apiEndpoint+'/users/profile', {
@@ -60,13 +68,13 @@ const HeaderComponent = (props) => {
         <div className="w-75 block flex-grow lg:flex lg:items-center">
             <CustomNavLink history={history} text="Random" link="/card/random"></CustomNavLink>
             <CustomNavLink history={history} text="Edit" link="/category/edit"></CustomNavLink>
-            <CustomNavLink history={history} text="My Categories" link="/my-categories"></CustomNavLink>
-            <CustomNavLink history={history} text="Categories" link="/public-categories"></CustomNavLink>
+            <CustomNavLink history={history} text="My Categories" link="/my-categories/"></CustomNavLink>
+            <CustomNavLink history={history} text="Categories" link="/public-categories/"></CustomNavLink>
             {/* only logged in user can see this */}
             </div>
             {/*USER DROPDOWN AND SEARCH BAR */}
             <div className="text-sm text-right flex-grow">
-            <input onChange={changeSearchQuery} onKeyDown={handleSearchRequest} type="search" className="w-7/12 bg-gray-200 focus:bg-white border-transparent focus:border-green-1000 shadow rounded border-2 p-3 mr-5 inline-block" placeholder="Learn a specific word"></input>
+            {/* <input onChange={changeSearchQuery} onKeyDown={handleSearchRequest} type="search" className="w-7/12 bg-gray-200 focus:bg-white border-transparent focus:border-green-1000 shadow rounded border-2 p-3 mr-5 inline-block" placeholder="Learn a specific word"></input> */}
             
             <UserDropdown history={history} setNewData={props.setNewData} removeCookie={props.removeCookie} user={props.user} setShowDropdown={setShowDropdown} showDropdown={showDropdown}></UserDropdown>
             </div>

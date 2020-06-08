@@ -65,7 +65,7 @@ const CategoryAddForm = (props) => {
     //call POST API here
     console.log(data);
     try {
-      data.answers = [];
+      data.answers = ["all rolled up in one","a good egg","hold it"];
       await axios.post(`${apiEndpoint}/words/create`, data, {
         headers: {
           Accept: "application/json",
