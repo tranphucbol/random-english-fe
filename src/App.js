@@ -21,7 +21,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 function App() {
   const login = (localStorage.getItem("login") === 'true');
   // const apiEndpoint = "http://128.199.168.137:3637/api";
-  const apiEndpoint = "http://localhost:3001/api";
+  const apiEndpoint = "http://128.199.168.137:3637/api";
   const [cookies, setCookie, removeCookie] = useCookies(['authentication']);
 
   const location = useLocation();
