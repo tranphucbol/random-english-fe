@@ -4,6 +4,8 @@ import "../../css/randomCard.css"
 import QuestionBox from './QuestionBox'
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import { Link } from "react-router-dom"
+
 
 
 const Test = (props) => {
@@ -14,6 +16,7 @@ const Test = (props) => {
         setIsOpen(true);
     }
     const handleAgain = () => {
+
     }
 
     const handleQuit = () => {
@@ -47,6 +50,7 @@ const Test = (props) => {
                     setWords(randomWordForTest);
                 }
             })
+        return ;
     }, [])
 
     const handleFinish = (curValue) => {
@@ -63,18 +67,17 @@ const Test = (props) => {
             >
                 <div style={{ textAlign: "center", fontSize: '20pt' }}><b> Chúc mừng bạn đã hoàn thành bài test</b></div>
                 <div style={{ textAlign: "center", fontSize: '40pt', color: "#337ab7", margin: '30px 0' }}><b>{value}/10 </b></div>
-                <button
-                    onClick={handleAgain}
-                    className="text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-3"
+                <div className="flex justify-center" ><button style={{width:"35%"}}
+                    className="text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-3 mx-3"
                 >
-                    Làm lại
+                    <Link to={`/test/category/1`} >Kiểm tra lại</Link>
                 </button>
-                <button
-                    onClick={handleQuit}
-                    className="text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-3"
+                <button style={{width:"35%"}}
+                    className="text-lg bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-3 mx-3"
                 >
-                    Thoát
-                </button>
+                    <Link to={`/my-categories/`} >Thoát</Link>
+                </button></div>
+                
             </Modal>
         </>)
 }
