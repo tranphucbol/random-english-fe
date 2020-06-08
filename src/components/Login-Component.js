@@ -38,6 +38,7 @@ const LoginForm = (props)=>{
         let expireDate = new Date();
         expireDate.setTime(expireDate.getTime() + (24*3600*1000)); // 15 min expiration
         localStorage.setItem("login","true");
+        localStorage.setItem("user", JSON.stringify(res.data));
         props.setCookie('authentication',res.data.token,{
           expires: expireDate,
           path: '/',
@@ -64,7 +65,7 @@ const LoginForm = (props)=>{
   });
 
   if (props.login) {
-      return <Redirect to="/profile"></Redirect>;
+      return <Redirect to="/"></Redirect>;
   } else
       return (
         <div className="container w-100 h-screen flex flex-col justify-center align-items">

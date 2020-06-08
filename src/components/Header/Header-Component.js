@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Redirect, useHistory} from 'react-router-dom';  
 import handleResponse from '../../helper/ResponseHandler';
 import UserDropdown from './UserDropdown';
@@ -8,6 +8,14 @@ const HeaderComponent = (props) => {
     const [searchInput,setSearchInput] = useState("");
     const [showDropdown,setShowDropdown] = useState(false);
     const history = useHistory();
+
+    useEffect(() => {
+        if(localStorage.getItem('user')){
+        props.setNewData(JSON.parse(localStorage.getItem("user")));
+        } else{
+            localStorage.clear();
+        }
+    },[]);
 
     // if(!curUser && props.cookie){
     // fetch(props.apiEndpoint+'/users/profile', {

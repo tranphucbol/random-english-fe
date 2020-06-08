@@ -58,6 +58,7 @@ const RegisterForm = (props) => {
                     let expireDate = new Date();
                     expireDate.setTime(expireDate.getTime() + 15 * 60 * 1000); // 15 min expiration
                     localStorage.setItem("login", "true");
+                    localStorage.setItem("user", JSON.stringify(res.data));
                     props.setCookie("authentication", res.data.token, {
                         expires: expireDate,
                         path: "/",
@@ -78,7 +79,7 @@ const RegisterForm = (props) => {
     });
 
     if (props.login) {
-        return <Redirect to="/profile"></Redirect>;
+        return <Redirect to="/"></Redirect>;
     } else
         return (
             <div className="h-screen w-full flex justify-center items-center flex-col">
