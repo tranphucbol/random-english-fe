@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Category from "./Category";
 import Pagination from "react-js-pagination";
 import EmptyCategory from "./EmptyCategory";
+import PublicCategory from "./PublicCategory";
 
-const Categories = ({ categories }) => {
-  console.log(categories);
+const Categories = ({ categories, reload, isPublicCategory }) => {
   const [activePage, setActivePage] = useState(1);
   const handleChangePage = (page) => {
     setActivePage(page);
@@ -16,7 +16,7 @@ const Categories = ({ categories }) => {
           .slice((activePage - 1) * 4, (activePage - 1) * 4 + 4)
           .map((category) => (
             <div key={category.id} className="col-span-1">
-              <Category {...category} />
+              {isPublicCategory ? <PublicCategory {...category} reload={reload} /> : <Category {...category} reload={reload} />}
             </div>
           ))}
 
@@ -29,16 +29,6 @@ const Categories = ({ categories }) => {
               <EmptyCategory />
             </div>
           ))}
-
-        {/* <div className="col-span-1">
-          <Category />
-        </div>
-        <div className="col-span-1">
-          <Category />
-        </div>
-        <div className="col-span-1">
-          <Category />
-        </div> */}
       </div>
 
       <Pagination

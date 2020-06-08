@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import Spinner from "../Spinner";
+import React, {useState} from "react";
 import { useCookies } from "react-cookie";
 import { apiEndpoint } from "../../constant/";
 import axios from "axios";
 import { store } from "react-notifications-component";
+import Spinner from "../Spinner"
 
-const PrivacyButton = ({ id, isPublic, allowChangePrivacy }) => {
+const DeleteButton = ({ id, className, reload }) => {
+
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(isPublic);
   const [cookies] = useCookies(["authentication"]);
   const token = cookies["authentication"];
 
@@ -15,8 +15,8 @@ const PrivacyButton = ({ id, isPublic, allowChangePrivacy }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(
-        `${apiEndpoint}/categories/change-privacy/${id}`,
+    await axios.post(
+        `${apiEndpoint}/categories/remove-to-my-categories/${id}`,
         {},
         {
           headers: {
@@ -28,7 +28,7 @@ const PrivacyButton = ({ id, isPublic, allowChangePrivacy }) => {
       );
       store.addNotification({
         title: "Thành công!",
-        message: response.data.message,
+        message: "Xóa bộ sưu tập thành công",
         type: "success",
         insert: "top",
         container: "top-right",
@@ -39,11 +39,12 @@ const PrivacyButton = ({ id, isPublic, allowChangePrivacy }) => {
           onScreen: true,
         },
       });
-      setStatus(!status);
+
+      reload();
     } catch (err) {
       store.addNotification({
         title: "Lỗi!",
-        message: err.response.data.message,
+        message: "Đã có lỗi xảy ra",
         type: "danger",
         insert: "top",
         container: "top-right",
@@ -59,53 +60,20 @@ const PrivacyButton = ({ id, isPublic, allowChangePrivacy }) => {
     }
   };
 
-  const publicButton = (
+  return (
     <button
       onClick={handleClick}
       disabled={loading}
-      className={`flex items-center ${
-        loading ? "bg-blue-300" : "bg-blue-500 hover:bg-blue-700"
-      } text-white text-lg font-bold py-1 px-4 rounded`}
+      className={`${className} flex items-center ${loading ? "bg-red-300" : "bg-red-500 hover:bg-red-700"} text-white text-lg font-bold py-1 px-4 rounded`}
     >
       {loading ? (
         <Spinner className="mr-1" />
       ) : (
-        <i className="fas fa-globe-americas mr-1"></i>
+        <i className="fas fa-trash mr-1"></i>
       )}
-      Công khai
+      Xóa
     </button>
   );
-
-  const privateButton = (
-    <button
-      onClick={handleClick}
-      disabled={loading}
-      className={`flex items-center ${
-        loading ? "bg-red-300" : "bg-red-500 hover:bg-red-700"
-      } text-white text-lg font-bold py-1 px-4 rounded`}
-    >
-      {loading ? (
-        <Spinner className="mr-1" />
-      ) : (
-        <i className="fas fa-lock mr-1"></i>
-      )}
-      Riêng tư
-    </button>
-  );
-
-  const disabledPrivateButton = (
-    <button
-      disabled
-      className="bg-red-300 text-white text-lg font-bold py-1 px-4 rounded"
-    >
-      <i className="fas fa-lock mr-1"></i> Riêng tư
-    </button>
-  );
-
-  if (allowChangePrivacy) {
-    return !status ? publicButton : privateButton;
-  }
-  return disabledPrivateButton;
 };
 
-export default PrivacyButton;
+export default DeleteButton;
