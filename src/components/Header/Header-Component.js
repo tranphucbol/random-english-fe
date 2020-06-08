@@ -75,7 +75,7 @@ const HeaderComponent = (props) => {
             </div>
             {/*USER DROPDOWN AND SEARCH BAR */}
             <div className="text-sm text-right flex-grow">
-            <input onChange={changeSearchQuery} onKeyDown={handleSearchRequest} type="search" className="w-7/12 bg-gray-200 focus:bg-white border-transparent focus:border-green-1000 shadow rounded border-2 p-3 mr-5 inline-block" placeholder="Learn a specific word"></input>
+            {/* <input onChange={changeSearchQuery} onKeyDown={handleSearchRequest} type="search" className="w-7/12 bg-gray-200 focus:bg-white border-transparent focus:border-green-1000 shadow rounded border-2 p-3 mr-5 inline-block" placeholder="Learn a specific word"></input> */}
             
             <UserDropdown history={history} setNewData={props.setNewData} removeCookie={props.removeCookie} user={props.user} setShowDropdown={setShowDropdown} showDropdown={showDropdown}></UserDropdown>
             </div>
