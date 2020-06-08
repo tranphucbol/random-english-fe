@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
-import {useForm} from 'react-hook-form';
-import { Redirect ,useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 const VerifyUserForm = (props)=>{
   const [loginErr,setLoginErr] = useState(null);

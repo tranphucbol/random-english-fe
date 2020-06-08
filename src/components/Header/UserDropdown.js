@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import {Redirect, useHistory} from 'react-router-dom';  
+import React from 'react';
 
 const UserDropdown = (props) => {
     const user = props.user;

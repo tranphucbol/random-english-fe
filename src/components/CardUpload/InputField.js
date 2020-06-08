@@ -2,7 +2,6 @@ import React from "react";
 
 const InputField = (props) => {
     const propName = props.name;
-    const propDisplay = props.display;
     const errors = props.errors ? props.errors[propName] : null;
     return (
       <div className="mb-6">

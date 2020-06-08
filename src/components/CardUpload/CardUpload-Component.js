@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Redirect } from "react-router-dom";
-import handleResponse from "../../helper/ResponseHandler";
 import ExampleField from "./ExampleField"
 import InputField from "./InputField"
 
