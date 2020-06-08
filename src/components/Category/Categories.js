@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Category from "./Category";
+import PrivateCategory from "./PrivateCategory";
 import Pagination from "react-js-pagination";
 import EmptyCategory from "./EmptyCategory";
 import PublicCategory from "./PublicCategory";
@@ -16,7 +16,7 @@ const Categories = ({ categories, reload, isPublicCategory }) => {
           .slice((activePage - 1) * 4, (activePage - 1) * 4 + 4)
           .map((category) => (
             <div key={category.id} className="col-span-1">
-              {isPublicCategory ? <PublicCategory {...category} reload={reload} /> : <Category {...category} reload={reload} />}
+              {isPublicCategory ? <PublicCategory {...category} reload={reload} /> : <PrivateCategory {...category} reload={reload} />}
             </div>
           ))}
 

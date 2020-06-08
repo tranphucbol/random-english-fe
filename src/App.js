@@ -10,8 +10,8 @@ import HeaderComponent from "./components/Header/Header-Component";
 import Profile from "./components/Profile/Profile-Component";
 import RandomCard from "./components/RandomCard-Component"
 import FooterComponent from "./components/Footer-Component";
-import MyCategories from "./components/categories/MyCategories"
-import PublicCategories from "./components/categories/PublicCategories"
+import MyCategories from "./components/Category/MyCategories"
+import PublicCategories from "./components/Category/PublicCategories"
 import ResetPasswordForm from "./components/VerifyResetPassword/ResetPassword-Component";
 import { useCookies } from "react-cookie"
 import CategoryEdit from './components/CardUpload/CategoryEdit-Component';

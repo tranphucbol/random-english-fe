@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useCookies } from "react-cookie";
-import { apiEndpoint } from "../../constant/";
+import { apiEndpoint } from "../../constant";
 import axios from "axios";
 import { store } from "react-notifications-component";
 import Spinner from "../Spinner"
