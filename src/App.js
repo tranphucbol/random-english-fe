@@ -58,7 +58,7 @@ function App() {
               <PrivateRoute path='/public-categories/' component={PublicCategories} cookie={authCookie} login={login} apiEndpoint={apiEndpoint}></PrivateRoute>
               <PrivateRoute path='/test/category/:id' cookie={authCookie} login={login} apiEndpoint={apiEndpoint} component={TestWord}></PrivateRoute>
               <Route path='/card/random' render={(props) => <RandomCard></RandomCard>}></Route>
-              <PrivateRoute exact path='/verify-user' render={(props) => <VerifyUserForm apiEndpoint={apiEndpoint} {...props}></VerifyUserForm>} />
+              <Route exact path='/verify-user' render={(props) => <VerifyUserForm apiEndpoint={apiEndpoint} {...props}></VerifyUserForm>} />
               <PrivateRoute path='/category/edit' component={CategoryEdit} cookie={authCookie} login={login} apiEndpoint={apiEndpoint} ></PrivateRoute>
               <Route exact path='/reset-password' render={(props) => <ResetPasswordForm apiEndpoint={apiEndpoint} {...props}></ResetPasswordForm>} />
               <Route path='/' render={props => (
